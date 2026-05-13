@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>VK Son — Creative Production & Business Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0D0A15;--bg2:#130E1F;--deep:#1E1430;
+  --purple:#44318D;--pink:#D83F87;--coral:#E98074;--slate:#A4B3B6;
+  --white:#F0EBF8;--dim:rgba(216,63,135,.16);
+  --border:rgba(164,179,182,.1);--border2:rgba(216,63,135,.35);
+  --green:#4ADE80;--yellow:#F5C842;
+  --F1:'DM Serif Display',serif;--F2:'Space Grotesk',sans-serif;--F3:'Syne',sans-serif;
+}
+body{background:var(--bg);color:var(--white);font-family:var(--F2);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+::selection{background:var(--pink);color:#fff}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--pink)}
+
+/* ── PRELOADER ── */
+#pre{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity 1s}
+#pre.gone{opacity:0;visibility:hidden;pointer-events:none}
+.preCont{text-align:center}
+.preName{font-family:var(--F3);font-weight:800;font-size:clamp(2.5rem,8vw,5rem);background:linear-gradient(135deg,var(--purple),var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.preBar{width:200px;height:2px;background:rgba(255,255,255,.1);margin:1rem auto;overflow:hidden}
+.preBar::after{content:'';display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--pink),var(--coral));animation:loadBar 2s ease forwards}
+@keyframes loadBar{to{width:100%}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 5vw;transition:all .3s}
+nav.sc{background:rgba(13,10,21,.95);backdrop-filter:blur(18px);padding:.8rem 5vw}
+.nLogo{font-family:var(--F3);font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nLinks{display:flex;gap:1.4rem;list-style:none;align-items:center}
+.nLinks a{font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#FFFFFF;transition:color .3s;position:relative;padding-bottom:3px}
+.nLinks a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;border-radius:2px;background:currentColor;transition:width .3s}
+.nLinks a:hover::after{width:100%}
+.nLinks li:nth-child(1) a:hover{color:#F5C842}
+.nLinks li:nth-child(2) a:hover{color:#E98074}
+.nLinks li:nth-child(3) a:hover{color:#3ECFCF}
+.nLinks li:nth-child(4) a:hover{color:#9D6FE8}
+.nLinks li:nth-child(5) a:hover{color:#4ADE80}
+.nLinks li:nth-child(6) a:hover{color:#D83F87}
+.nLinks li:nth-child(7) a:hover{color:#F4A261}
+.nCta{background:linear-gradient(135deg,var(--purple),var(--pink));padding:.45rem 1.2rem;border-radius:30px;color:#fff!important}
+.nCta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(216,63,135,.4)}
+.nCta::after{display:none!important}
+
+/* User Nav Pill */
+.nUserPill{display:flex;align-items:center;gap:.6rem;background:rgba(68,49,141,.25);border:1px solid var(--border2);padding:.35rem .9rem;border-radius:30px;cursor:pointer;transition:.3s}
+.nUserPill:hover{background:rgba(68,49,141,.5)}
+.nUserAvatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700}
+.nUserName{font-size:.65rem;font-weight:600;letter-spacing:.05em;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nUserDrop{position:absolute;top:calc(100% + 8px);right:0;background:var(--deep);border:1px solid var(--border2);border-radius:12px;padding:.5rem;min-width:160px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s;z-index:900}
+.nUserDrop.open{opacity:1;visibility:visible;transform:translateY(0)}
+.nDropItem{display:flex;align-items:center;gap:.5rem;padding:.5rem .8rem;border-radius:8px;font-size:.75rem;cursor:pointer;transition:.2s;color:var(--white)}
+.nDropItem:hover{background:var(--dim);color:var(--pink)}
+.nDropSep{height:1px;background:var(--border);margin:.3rem 0}
+.nUserWrap{position:relative}
+
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hbg span{width:25px;height:2px;background:var(--white);transition:.3s}
+.hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hbg.open span:nth-child(2){opacity:0}
+.hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mMenu{position:fixed;inset:0;background:var(--bg);z-index:750;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;visibility:hidden;transition:.3s}
+.mMenu.open{opacity:1;visibility:visible}
+.mMenu a{font-family:var(--F3);font-size:1.8rem;font-weight:700;color:var(--white);transition:.3s}
+.mMenu a:nth-child(1){color:#F5C842}
+.mMenu a:nth-child(2){color:#E98074}
+.mMenu a:nth-child(3){color:#3ECFCF}
+.mMenu a:nth-child(4){color:#9D6FE8}
+.mMenu a:nth-child(5){color:#4ADE80}
+.mMenu a:nth-child(6){color:#D83F87}
+.mMenu a:nth-child(7){color:#F4A261}
+.mMenu a:hover{transform:translateX(8px)}
+
+/* ── HERO ── */
+#hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
+.hBg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1600&q=85') center/cover;z-index:0}
+.hGrad{position:absolute;inset:0;z-index:1;background:linear-gradient(110deg,rgba(13,10,21,.95) 0%,rgba(30,20,48,.7) 100%)}
+.hCnt{position:relative;z-index:5;padding:0 7vw}
+.hEye{font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;color:var(--pink);margin-bottom:1rem}
+.hTitle{font-family:var(--F1);font-size:clamp(3rem,9vw,7rem);line-height:.9}
+.hTitle em{background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hSub{font-size:1rem;color:rgba(164,179,182,.8);max-width:500px;margin-top:1.5rem;line-height:1.8}
+.hCTA{display:flex;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
+.btnG{font-family:var(--F3);font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:1rem 2rem;transition:all .3s;cursor:pointer}
+.btnFill{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border:none}
+.btnOut{border:1.5px solid rgba(164,179,182,.4);color:var(--white);background:transparent}
+.btnFill:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(216,63,135,.4)}
+.btnOut:hover{border-color:var(--pink);color:var(--pink)}
+.hScr{position:absolute;right:4vw;bottom:5vh;z-index:5;text-align:center}
+.hScr p{font-size:.5rem;letter-spacing:.3em;writing-mode:vertical-rl;color:var(--slate)}
+
+/* ── TICKER ── */
+#ticker{background:linear-gradient(90deg,var(--purple),var(--pink),var(--coral));padding:.5rem 0;overflow:hidden}
+.tkT{display:flex;width:max-content;animation:scrollTicker 20s linear infinite}
+.tkI{font-family:var(--F3);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;padding:0 2rem;white-space:nowrap}
+@keyframes scrollTicker{to{transform:translateX(-50%)}}
+
+/* ── SECTIONS ── */
+section{padding:6rem 6vw;position:relative}
+.sLbl{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--pink);margin-bottom:1rem}
+.sTit{font-family:var(--F1);font-size:clamp(2rem,4vw,3.5rem)}
+.sTit em{background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ── SPLIT PANEL ── */
+#frontSplit{display:flex;height:90vh;position:relative}
+.spBiz,.spProd{flex:1;position:relative;cursor:pointer;overflow:hidden;transition:flex .5s}
+.spBiz:hover,.spProd:hover{flex:1.4}
+.spBiz .spBg{position:absolute;inset:0;filter:brightness(.5);background:url('Business.jfif') center/cover}
+.spProd .spBg{position:absolute;inset:0;filter:brightness(.4);background:url('images.png') center/cover}
+.spColor{position:absolute;inset:0;background:linear-gradient(135deg,rgba(68,49,141,.6),rgba(216,63,135,.3))}
+.spProd .spColor{background:linear-gradient(135deg,rgba(216,63,135,.5),rgba(233,128,116,.4))}
+.spContent{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
+.spIcon{font-size:4rem;margin-bottom:1rem}
+.spTitle{font-family:var(--F1);font-size:clamp(2rem,5vw,4rem);color:#fff}
+.spSub{color:rgba(255,255,255,.7);max-width:350px;margin:.5rem 0 1rem}
+.spItems{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+.spItem{font-size:.6rem;font-weight:600;letter-spacing:.1em;border:1px solid rgba(255,255,255,.3);padding:.3rem .8rem;border-radius:30px}
+.spBtn{font-family:var(--F3);font-size:.6rem;font-weight:700;letter-spacing:.15em;margin-top:1.5rem;padding:.7rem 1.5rem;background:rgba(255,255,255,.1);border-radius:30px;transition:.3s}
+.spBtn:hover{background:var(--pink);transform:translateY(-2px)}
+.spDivider{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--pink),var(--coral),transparent);z-index:5}
+.spVS{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:var(--bg);border:2px solid var(--pink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--pink);z-index:6}
+
+/* ── BUSINESS GRID ── */
+.bizGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;margin-top:3rem}
+.bizCard{background:var(--deep);padding:2rem;border-radius:12px;transition:all .3s}
+.bizCard:hover{transform:translateY(-8px);background:rgba(30,20,48,.9)}
+.bizIcon{font-size:2rem;display:block;margin-bottom:.8rem}
+.bizName{font-family:var(--F1);font-size:1.3rem;margin-bottom:.5rem}
+.bizDesc{font-size:.85rem;color:rgba(164,179,182,.7);line-height:1.6}
+
+/* ── PRODUCTION GRID ── */
+.production{position:relative;background:url('images.png') center/cover fixed}
+.production::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(13,10,21,.92),rgba(30,20,48,.88));z-index:0}
+.production>*{position:relative;z-index:1}
+.prodGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
+.prodCard{background:rgba(30,20,48,.85);backdrop-filter:blur(5px);padding:2rem;border-radius:12px;transition:.3s;border-left:3px solid transparent}
+.prodCard:hover{border-left-color:var(--pink);transform:translateX(5px);background:rgba(30,20,48,.95)}
+.prodIcon{font-size:2rem;margin-bottom:.8rem}
+.prodName{font-family:var(--F1);font-size:1.2rem}
+.prodDesc{font-size:.85rem;color:rgba(164,179,182,.7);margin-top:.5rem}
+.prodTag{display:inline-block;font-size:.5rem;font-weight:600;letter-spacing:.1em;background:var(--dim);color:var(--pink);padding:.2rem .6rem;border-radius:20px;margin-top:.8rem}
+
+/* ── VIDEO SECTION ── */
+#videos{background:var(--bg2);position:relative;overflow:hidden}
+.videoGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem;margin-top:3rem}
+
+/* Video Card — clickable */
+.videoCard{background:var(--deep);border-radius:16px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;position:relative}
+.videoCard:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(216,63,135,.25)}
+.videoCardThumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,var(--deep),var(--bg2));display:flex;align-items:center;justify-content:center;overflow:hidden}
+.videoCardThumb img{width:100%;height:100%;object-fit:cover}
+.vcThumbIcon{font-size:3.5rem}
+.vcPlayBtn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(13,10,21,.5);opacity:0;transition:.3s}
+.vcPlayBtn span{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-size:1.4rem;transform:scale(.8);transition:.3s}
+.videoCard:hover .vcPlayBtn{opacity:1}
+.videoCard:hover .vcPlayBtn span{transform:scale(1)}
+.vcPlatBadge{position:absolute;top:.6rem;right:.6rem;background:rgba(13,10,21,.85);backdrop-filter:blur(6px);padding:.25rem .6rem;border-radius:20px;font-size:.55rem;font-weight:700;letter-spacing:.08em;color:var(--pink);border:1px solid var(--border2)}
+.vcBody{padding:1.2rem 1.4rem 1.4rem}
+.vcTitle{font-family:var(--F1);font-size:1.15rem;margin-bottom:.4rem}
+.vcDesc{font-size:.78rem;color:rgba(164,179,182,.7);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vcMeta{display:flex;align-items:center;justify-content:space-between;margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--border)}
+.vcReviewCount{font-size:.7rem;color:var(--slate);display:flex;align-items:center;gap:.3rem}
+.vcCategoryBadge{font-size:.55rem;font-weight:700;letter-spacing:.08em;padding:.2rem .6rem;border-radius:20px;background:var(--dim);color:var(--pink)}
+
+.socialLinksWrap{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2rem}
+.socialIcon{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:rgba(216,63,135,.15);border-radius:40px;font-size:.7rem;font-weight:600;letter-spacing:.05em;transition:.3s}
+.socialIcon:hover{background:var(--pink);transform:translateY(-3px)}
+
+/* ── VIDEO MODAL ── */
+.vModal{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:opacity .3s}
+.vModal.open{opacity:1;visibility:visible}
+.vModalBg{position:absolute;inset:0;background:rgba(13,10,21,.92);backdrop-filter:blur(12px)}
+.vModalBox{position:relative;z-index:2;background:var(--deep);border:1px solid var(--border2);border-radius:20px;width:100%;max-width:780px;max-height:90vh;overflow-y:auto;transform:translateY(30px) scale(.97);transition:transform .3s}
+.vModal.open .vModalBox{transform:translateY(0) scale(1)}
+.vModalClose{position:absolute;top:1rem;right:1rem;width:36px;height:36px;border-radius:50%;background:rgba(216,63,135,.15);border:1px solid var(--border2);color:var(--pink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:.2s;z-index:3}
+.vModalClose:hover{background:var(--pink);color:#fff}
+.vModalThumb{width:100%;aspect-ratio:16/9;background:var(--bg2);display:flex;align-items:center;justify-content:center;border-radius:20px 20px 0 0;overflow:hidden;position:relative}
+.vModalThumb img{width:100%;height:100%;object-fit:cover}
+.vModalThumbIcon{font-size:4rem}
+.vModalPlatBadge{position:absolute;top:1rem;left:1rem;background:rgba(13,10,21,.85);backdrop-filter:blur(6px);padding:.3rem .8rem;border-radius:20px;font-size:.6rem;font-weight:700;color:var(--pink);border:1px solid var(--border2)}
+.vModalContent{padding:1.8rem 2rem 2rem}
+.vModalTitle{font-family:var(--F1);font-size:1.8rem;margin-bottom:.5rem}
+.vModalCategory{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--dim);color:var(--pink);padding:.25rem .7rem;border-radius:20px;margin-bottom:1rem}
+.vModalDesc{font-size:.92rem;color:rgba(164,179,182,.85);line-height:1.8;margin-bottom:1.5rem}
+.vModalWatchBtn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;background:linear-gradient(135deg,var(--purple),var(--pink));border-radius:30px;font-family:var(--F3);font-size:.75rem;font-weight:700;letter-spacing:.12em;color:#fff;transition:.3s;border:none;cursor:pointer}
+.vModalWatchBtn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(216,63,135,.4)}
+
+/* ── VIDEO REVIEWS ── */
+.vReviewSection{border-top:1px solid var(--border);margin-top:1.5rem;padding-top:1.5rem}
+.vRevTitle{font-family:var(--F1);font-size:1.2rem;margin-bottom:1rem}
+.vRevList{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.2rem;max-height:240px;overflow-y:auto;padding-right:.3rem}
+.vRevList::-webkit-scrollbar{width:4px}
+.vRevList::-webkit-scrollbar-thumb{background:var(--purple);border-radius:2px}
+.vRevCard{background:var(--bg2);border-radius:10px;padding:1rem;border-left:3px solid var(--pink)}
+.vRevCardTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;flex-wrap:wrap;gap:.3rem}
+.vRevAuthor{font-weight:600;font-size:.85rem}
+.vRevStars{color:var(--yellow);font-size:.85rem}
+.vRevTime{font-size:.65rem;color:var(--slate)}
+.vRevText{font-size:.82rem;color:rgba(164,179,182,.8);line-height:1.6;font-style:italic}
+.vRevEmpty{font-size:.82rem;color:var(--slate);text-align:center;padding:1rem;font-style:italic}
+
+/* Add review form in modal */
+.vAddRevForm{background:var(--bg);border-radius:12px;padding:1.2rem;border:1px solid var(--border)}
+.vAddRevTitle{font-size:.8rem;font-weight:700;letter-spacing:.1em;color:var(--pink);margin-bottom:.8rem;text-transform:uppercase}
+.vStarPicker{display:flex;gap:.4rem;margin-bottom:.8rem}
+.vStarPicker span{font-size:1.4rem;cursor:pointer;transition:.15s;filter:grayscale(1) opacity(.5)}
+.vStarPicker span.lit{filter:none}
+.vRevInput{width:100%;background:var(--deep);border:1px solid var(--border);padding:.65rem .8rem;color:var(--white);border-radius:8px;font-family:var(--F2);font-size:.82rem;resize:vertical;min-height:65px}
+.vRevInput:focus{outline:none;border-color:var(--pink)}
+.vRevSubmitBtn{margin-top:.7rem;padding:.55rem 1.4rem;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border:none;border-radius:20px;font-family:var(--F2);font-size:.75rem;font-weight:700;cursor:pointer;transition:.3s}
+.vRevSubmitBtn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(216,63,135,.35)}
+.vRevLoginPrompt{background:rgba(68,49,141,.15);border:1px dashed var(--purple);border-radius:12px;padding:1rem;text-align:center;font-size:.82rem;color:var(--slate)}
+.vRevLoginPrompt strong{color:var(--pink);cursor:pointer}
+.vRevLoginPrompt strong:hover{text-decoration:underline}
+
+/* ── STUDIO ── */
+.studioWrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
+.studioCards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.sCard{background:var(--deep);padding:1.5rem;border-radius:12px}
+.sCardIcon{font-size:1.8rem}
+.sCardName{font-family:var(--F1);font-size:1.1rem}
+.sCardDesc{font-size:.8rem;color:rgba(164,179,182,.7);margin-top:.3rem}
+.studioRight{position:relative}
+.studioImg{width:100%;border-radius:20px}
+.studioStat{position:absolute;bottom:-20px;left:-20px;background:linear-gradient(135deg,var(--purple),var(--pink));padding:1rem;border-radius:12px;text-align:center}
+.stSSN{font-size:2rem;font-weight:800}
+.stSSL{font-size:.6rem;letter-spacing:.1em}
+
+/* ── TIMELINE ── */
+.preProdTimeline{margin-top:3rem}
+.ppItem{display:flex;gap:2rem;margin-bottom:2rem}
+.ppDot{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+.ppContent{background:var(--bg2);padding:1.2rem 1.5rem;border-radius:12px;flex:1}
+.ppName{font-family:var(--F1);font-size:1.1rem}
+.ppDesc{font-size:.85rem;color:rgba(164,179,182,.7);margin-top:.3rem}
+
+/* ── POST GRID ── */
+.ppGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.ppCard{background:var(--deep);padding:1.8rem;border-radius:12px;transition:.3s}
+.ppCard:hover{transform:translateY(-5px);background:rgba(30,20,48,.9)}
+.ppStepNum{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ppCName{font-family:var(--F1);font-size:1.1rem;margin:.5rem 0}
+.ppCDesc{font-size:.8rem;color:rgba(164,179,182,.7)}
+
+/* ── REVIEWS (PUBLIC) ── */
+#reviews{background:var(--bg2)}
+.reviewsPublicGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
+.rPubCard{background:var(--deep);border-radius:16px;padding:1.5rem;border:1px solid var(--border);transition:.3s}
+.rPubCard:hover{transform:translateY(-5px);border-color:var(--border2)}
+.rPubStars{color:var(--yellow);font-size:1.1rem;margin-bottom:.8rem}
+.rPubText{font-size:.9rem;color:rgba(164,179,182,.8);line-height:1.6;margin-bottom:1rem;font-style:italic}
+.rPubAuthor{font-family:var(--F1);font-size:.95rem}
+.rPubRole{font-size:.7rem;color:var(--slate)}
+
+/* ── ABOUT ── */
+.aboutWrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:2rem}
+.aboutBody{font-size:1rem;line-height:1.8;color:rgba(164,179,182,.8)}
+.aboutQ{border-left:3px solid var(--pink);padding-left:1.5rem;font-family:var(--F1);font-style:italic;margin:1.5rem 0}
+
+/* ── CONTACT ── */
+.ctWrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.ctItem{display:flex;gap:1rem;margin-bottom:1.5rem}
+.ctIco{width:45px;height:45px;background:var(--deep);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--pink)}
+.ctLbl{font-size:.6rem;letter-spacing:.15em;color:var(--slate)}
+.ctVal{font-size:1rem;margin-top:.2rem}
+.fg{margin-bottom:1rem}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--deep);border:1px solid var(--border);padding:.8rem;color:var(--white);border-radius:8px;font-family:var(--F2);font-size:.9rem}
+.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--pink)}
+.fg select option{background:var(--deep)}
+.fgRow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fSub{width:100%;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border:none;padding:.8rem;border-radius:30px;font-weight:700;cursor:pointer;font-family:var(--F2);transition:.3s;font-size:.95rem}
+.fSub:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(216,63,135,.4)}
+.fSub:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.formMsg{margin-top:1rem;padding:.8rem 1rem;border-radius:8px;font-size:.85rem;display:none}
+.formMsg.success{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);color:#4ADE80;display:block}
+.formMsg.error{background:rgba(216,63,135,.1);border:1px solid rgba(216,63,135,.3);color:var(--pink);display:block}
+
+/* ── FOOTER ── */
+footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
+.ftTop{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+.ftLogo{font-family:var(--F3);font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ftTag{color:var(--slate);margin-top:.5rem;font-size:.85rem}
+.ftColT{font-size:.6rem;letter-spacing:.2em;margin-bottom:1rem;color:var(--pink)}
+.ftLinks{list-style:none}
+.ftLinks li{margin-bottom:.5rem}
+.ftLinks a{color:var(--slate);font-size:.8rem;transition:color .3s}
+.ftLinks a:hover{color:var(--pink)}
+.ftBot{border-top:1px solid var(--border);padding-top:1.5rem;margin-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.ftSocial{display:flex;gap:.8rem;margin-top:1rem}
+.ftSocial a{display:inline-flex;align-items:center;gap:.3rem;font-size:.7rem;color:var(--slate);transition:color .3s}
+.ftSocial a:hover{color:var(--pink)}
+
+/* ── BACK TO TOP ── */
+#btt{position:fixed;bottom:2rem;right:2rem;width:45px;height:45px;background:linear-gradient(135deg,var(--purple),var(--pink));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;opacity:0;visibility:hidden;transition:.3s;z-index:100}
+#btt.show{opacity:1;visibility:visible}
+#btt:hover{transform:translateY(-3px)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(30px);transition:all .8s}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ═══════════════════════════════════════
+   USER AUTH MODAL
+═══════════════════════════════════════ */
+.authModal{position:fixed;inset:0;background:rgba(13,10,21,.95);backdrop-filter:blur(14px);z-index:9500;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:.3s}
+.authModal.open{opacity:1;visibility:visible}
+.authBox{background:var(--deep);border:1px solid var(--border2);border-radius:22px;width:100%;max-width:420px;overflow:hidden;position:relative;transform:translateY(20px) scale(.97);transition:.3s}
+.authModal.open .authBox{transform:translateY(0) scale(1)}
+.authHeader{background:linear-gradient(135deg,rgba(68,49,141,.4),rgba(216,63,135,.2));padding:2rem 2rem 1.5rem;text-align:center;border-bottom:1px solid var(--border)}
+.authHeaderIcon{font-size:2.5rem;margin-bottom:.5rem}
+.authHeaderTitle{font-family:var(--F1);font-size:1.8rem}
+.authHeaderTitle em{background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.authTabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg)}
+.authTab{flex:1;padding:.8rem;text-align:center;font-family:var(--F3);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.3s;border-bottom:2px solid transparent;color:var(--slate)}
+.authTab.active{color:var(--pink);border-bottom-color:var(--pink);background:rgba(216,63,135,.05)}
+.authBody{padding:1.8rem 2rem 2rem}
+.authField{margin-bottom:1rem}
+.authField label{display:block;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-bottom:.4rem}
+.authField input{width:100%;background:var(--bg);border:1px solid var(--border);padding:.75rem 1rem;color:var(--white);border-radius:10px;font-family:var(--F2);font-size:.9rem;transition:.2s}
+.authField input:focus{outline:none;border-color:var(--pink);background:rgba(216,63,135,.04)}
+.authSubmitBtn{width:100%;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border:none;padding:.85rem;border-radius:30px;font-family:var(--F3);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.3s;margin-top:.5rem}
+.authSubmitBtn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(216,63,135,.4)}
+.authErr{background:rgba(216,63,135,.1);border:1px solid rgba(216,63,135,.3);color:var(--pink);padding:.6rem .9rem;border-radius:8px;font-size:.78rem;margin-bottom:.8rem;display:none}
+.authSuccess{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);color:var(--green);padding:.6rem .9rem;border-radius:8px;font-size:.78rem;margin-bottom:.8rem;display:none}
+.authClose{position:absolute;top:.8rem;right:.8rem;width:32px;height:32px;border-radius:50%;background:var(--bg);border:1px solid var(--border);color:var(--slate);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:.2s}
+.authClose:hover{border-color:var(--pink);color:var(--pink)}
+.authSwitch{text-align:center;margin-top:1rem;font-size:.78rem;color:var(--slate)}
+.authSwitch span{color:var(--pink);cursor:pointer;font-weight:600}
+.authSwitch span:hover{text-decoration:underline}
+
+/* Password strength */
+.passStrength{display:flex;gap:3px;margin-top:.4rem}
+.psBar{height:3px;flex:1;border-radius:2px;background:var(--border);transition:.3s}
+.psBar.weak{background:#ef4444}
+.psBar.fair{background:var(--coral)}
+.psBar.good{background:var(--yellow)}
+.psBar.strong{background:var(--green)}
+
+/* ═══════════════════════════════════════
+   ADMIN PANEL (unchanged styles)
+═══════════════════════════════════════ */
+#adminBtn{position:fixed;bottom:2rem;left:2rem;width:45px;height:45px;background:rgba(68,49,141,.8);border:1px solid var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:1.2rem;z-index:100;transition:.3s}
+#adminBtn:hover{background:var(--purple);transform:scale(1.1)}
+#adminModal{position:fixed;inset:0;background:rgba(13,10,21,.97);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.3s}
+#adminModal.open{opacity:1;visibility:visible}
+.adminLoginBox{background:var(--deep);border:1px solid var(--border2);border-radius:20px;padding:3rem;max-width:400px;width:90%;text-align:center}
+.adminLoginBox h2{font-family:var(--F1);font-size:2rem;margin-bottom:.5rem}
+.adminLoginBox p{color:var(--slate);font-size:.85rem;margin-bottom:2rem}
+.aInput{width:100%;background:var(--bg);border:1px solid var(--border);padding:.8rem 1rem;color:var(--white);border-radius:8px;font-family:var(--F2);margin-bottom:1rem;font-size:.9rem}
+.aInput:focus{outline:none;border-color:var(--pink)}
+.aBtn{width:100%;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border:none;padding:.8rem;border-radius:30px;font-weight:700;cursor:pointer;font-family:var(--F2);transition:.3s;margin-bottom:.8rem}
+.aBtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(216,63,135,.4)}
+.aBtnCancel{width:100%;background:transparent;color:var(--slate);border:1px solid var(--border);padding:.7rem;border-radius:30px;cursor:pointer;font-family:var(--F2);transition:.3s}
+.aBtnCancel:hover{border-color:var(--slate);color:var(--white)}
+.aErr{color:var(--pink);font-size:.8rem;margin-bottom:.8rem;display:none}
+#adminDash{position:fixed;inset:0;background:var(--bg);z-index:8000;overflow-y:auto;opacity:0;visibility:hidden;transition:.3s}
+#adminDash.open{opacity:1;visibility:visible}
+.dashNav{background:var(--deep);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:.5rem}
+.dashLogo{font-family:var(--F3);font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.dashTabs{display:flex;gap:.5rem;flex-wrap:wrap}
+.dTab{background:transparent;border:1px solid var(--border);color:var(--slate);padding:.5rem 1rem;border-radius:20px;cursor:pointer;font-family:var(--F2);font-size:.8rem;transition:.3s}
+.dTab.active,.dTab:hover{background:var(--pink);border-color:var(--pink);color:#fff}
+.dashLogout{background:transparent;border:1px solid var(--border);color:var(--slate);padding:.5rem 1rem;border-radius:20px;cursor:pointer;font-family:var(--F2);font-size:.8rem;transition:.3s}
+.dashLogout:hover{border-color:var(--pink);color:var(--pink)}
+.dashBody{padding:2rem;max-width:1200px;margin:0 auto}
+.dashPanel{display:none}
+.dashPanel.active{display:block}
+.dashTitle{font-family:var(--F1);font-size:2rem;margin-bottom:.5rem}
+.dashSubtitle{color:var(--slate);font-size:.85rem;margin-bottom:2rem}
+.statsRow{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.statCard{background:var(--deep);padding:1.5rem;border-radius:12px;text-align:center}
+.statCard .num{font-family:var(--F3);font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.statCard .lbl{font-size:.7rem;color:var(--slate);letter-spacing:.1em;margin-top:.3rem}
+.addForm{background:var(--deep);border-radius:16px;padding:2rem;margin-bottom:2rem}
+.addForm h3{font-family:var(--F1);font-size:1.5rem;margin-bottom:1.5rem;color:var(--white)}
+.aFRow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.aFull{margin-bottom:1rem}
+.aFull input,.aFull textarea,.aFull select,
+.aFRow input,.aFRow select{width:100%;background:var(--bg);border:1px solid var(--border);padding:.7rem 1rem;color:var(--white);border-radius:8px;font-family:var(--F2);font-size:.9rem}
+.aFull input:focus,.aFull textarea:focus,.aFull select:focus,
+.aFRow input:focus,.aFRow select:focus{outline:none;border-color:var(--pink)}
+.aFull select option,.aFRow select option{background:var(--deep)}
+.aFull textarea{resize:vertical;min-height:80px}
+.aSubmitBtn{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border:none;padding:.7rem 2rem;border-radius:30px;font-weight:700;cursor:pointer;font-family:var(--F2);transition:.3s}
+.aSubmitBtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(216,63,135,.4)}
+.videoListGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.vListCard{background:var(--deep);border-radius:12px;overflow:hidden;border:1px solid var(--border);transition:.3s}
+.vListCard:hover{border-color:var(--border2)}
+.vListThumb{width:100%;aspect-ratio:16/9;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative}
+.vListThumb img{width:100%;height:100%;object-fit:cover}
+.vPlatBadge{position:absolute;top:.5rem;right:.5rem;background:rgba(13,10,21,.8);padding:.2rem .5rem;border-radius:8px;font-size:.6rem;font-weight:600}
+.vListInfo{padding:1rem}
+.vListTitle{font-family:var(--F1);font-size:1rem;margin-bottom:.3rem}
+.vListDesc{font-size:.75rem;color:var(--slate)}
+.vListActions{display:flex;gap:.5rem;margin-top:.8rem}
+.vActBtn{padding:.3rem .8rem;border-radius:15px;font-size:.65rem;font-weight:600;cursor:pointer;border:none;font-family:var(--F2);transition:.3s}
+.vEdit{background:rgba(68,49,141,.3);color:var(--purple);border:1px solid var(--purple)}
+.vEdit:hover{background:var(--purple);color:#fff}
+.vDel{background:rgba(216,63,135,.15);color:var(--pink);border:1px solid rgba(216,63,135,.3)}
+.vDel:hover{background:var(--pink);color:#fff}
+.msgList{display:flex;flex-direction:column;gap:1rem}
+.msgCard{background:var(--deep);border-radius:12px;padding:1.5rem;border-left:3px solid var(--pink);transition:.3s}
+.msgCard.read{border-left-color:var(--border);opacity:.7}
+.msgCard:hover{transform:translateX(4px)}
+.msgMeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem}
+.msgName{font-family:var(--F1);font-size:1.1rem}
+.msgEmail{font-size:.75rem;color:var(--pink)}
+.msgTime{font-size:.7rem;color:var(--slate)}
+.msgService{display:inline-block;font-size:.6rem;background:var(--dim);color:var(--pink);padding:.2rem .6rem;border-radius:20px;margin-bottom:.5rem}
+.msgBody{font-size:.85rem;color:rgba(164,179,182,.8);line-height:1.6}
+.msgActions{display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap}
+.markRead{padding:.3rem .8rem;border-radius:15px;font-size:.65rem;background:rgba(74,222,128,.1);color:#4ADE80;border:1px solid rgba(74,222,128,.3);cursor:pointer;font-family:var(--F2);transition:.3s}
+.markRead:hover{background:#4ADE80;color:#000}
+.msgDel{padding:.3rem .8rem;border-radius:15px;font-size:.65rem;background:rgba(216,63,135,.15);color:var(--pink);border:1px solid rgba(216,63,135,.3);cursor:pointer;font-family:var(--F2);transition:.3s}
+.msgDel:hover{background:var(--pink);color:#fff}
+.newBadge{background:var(--pink);color:#fff;font-size:.55rem;padding:.1rem .5rem;border-radius:10px;font-weight:700;margin-left:.5rem}
+.reviewForm{background:var(--deep);border-radius:16px;padding:2rem;margin-bottom:2rem}
+.reviewList{display:flex;flex-direction:column;gap:1rem}
+.rCard{background:var(--deep);border-radius:12px;padding:1.5rem;border:1px solid var(--border)}
+.rCardTop{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.rAuthor{font-family:var(--F1);font-size:1rem}
+.rStars{color:var(--yellow);font-size:1rem}
+.rText{font-size:.85rem;color:rgba(164,179,182,.8);margin-top:.5rem;line-height:1.6}
+.rVisible{font-size:.65rem;padding:.2rem .6rem;border-radius:10px;cursor:pointer;border:none;font-family:var(--F2);font-weight:600;transition:.3s}
+.rVisible.on{background:rgba(74,222,128,.1);color:#4ADE80;border:1px solid rgba(74,222,128,.3)}
+.rVisible.off{background:rgba(216,63,135,.1);color:var(--pink);border:1px solid rgba(216,63,135,.3)}
+.notifDot{width:8px;height:8px;background:var(--pink);border-radius:50%;display:inline-block;margin-left:.3rem;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.emptyState{text-align:center;padding:3rem;color:var(--slate)}
+.emptyState .emptyIcon{font-size:3rem;margin-bottom:1rem}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .nLinks{display:none}
+  .hbg{display:flex}
+  #frontSplit{flex-direction:column;height:auto}
+  .spBiz,.spProd{height:50vh}
+  .spDivider{display:none}
+  .studioWrap,.aboutWrap,.ctWrap{grid-template-columns:1fr}
+  .ppGrid{grid-template-columns:1fr 1fr}
+  .ftTop{grid-template-columns:1fr 1fr}
+  .statsRow{grid-template-columns:1fr 1fr}
+  .dashTabs{flex-wrap:wrap}
+  .aFRow{grid-template-columns:1fr}
+  .vModalContent{padding:1.2rem 1.2rem 1.5rem}
+  .vModalTitle{font-size:1.4rem}
+}
+@media(max-width:550px){
+  .ppGrid{grid-template-columns:1fr}
+  .ftTop{grid-template-columns:1fr}
+  .videoGrid{grid-template-columns:1fr}
+  .fgRow{grid-template-columns:1fr}
+  .studioCards{grid-template-columns:1fr}
+  .statsRow{grid-template-columns:1fr 1fr}
+  .authBody{padding:1.2rem 1.2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="pre">
+  <div class="preCont">
+    <div class="preName">VK SON</div>
+    <div class="preBar"></div>
+    <div style="color:var(--slate);margin-top:1rem">Creative Production & Business Studio</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nLogo">VK SON</div>
+  <ul class="nLinks">
+    <li><a href="#business">Business</a></li>
+    <li><a href="#production">Production</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#studio">Studio</a></li>
+    <li><a href="#preproduction">Pre-Production</a></li>
+    <li><a href="#postproduction">Post-Production</a></li>
+    <li><a href="#about">About</a></li>
+    <!-- User Auth Nav -->
+    <li id="navAuthBtns">
+      <a href="#" onclick="openAuth('login');return false;" style="margin-right:.5rem">Login</a>
+      <a href="#" onclick="openAuth('signup');return false;" class="nCta">Sign Up</a>
+    </li>
+    <li id="navUserArea" style="display:none">
+      <div class="nUserWrap">
+        <div class="nUserPill" onclick="toggleUserDrop()">
+          <div class="nUserAvatar" id="navAvatar">?</div>
+          <span class="nUserName" id="navUserName">User</span>
+          <span>▾</span>
+        </div>
+        <div class="nUserDrop" id="userDrop">
+          <div class="nDropItem" onclick="openAuth('profile')">👤 My Profile</div>
+          <div class="nDropSep"></div>
+          <div class="nDropItem" onclick="userLogout()" style="color:var(--pink)">↩ Logout</div>
+        </div>
+      </div>
+    </li>
+    <li><a href="#contact" class="nCta">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div id="mobAuthBtn" style="font-size:.65rem;font-weight:600;cursor:pointer;color:var(--pink)" onclick="openAuth('login')">Login</div>
+    <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mMenu" id="mMenu">
+  <a href="#business">Business</a>
+  <a href="#production">Production</a>
+  <a href="#videos">Videos</a>
+  <a href="#studio">Studio</a>
+  <a href="#preproduction">Pre-Production</a>
+  <a href="#postproduction">Post-Production</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hBg"></div>
+  <div class="hGrad"></div>
+  <div class="hCnt">
+    <div class="hEye">✦ CREATIVE PRODUCTION & BUSINESS STUDIO</div>
+    <h1 class="hTitle">Where <em>Vision</em><br>Meets <em>Creation</em></h1>
+    <p class="hSub">VK Son is a multi-disciplinary creative studio — blending business, film production, studio editing and videography into one powerful creative force.</p>
+    <div class="hCTA">
+      <a href="#business" class="btnG btnFill">✦ Business</a>
+      <a href="#production" class="btnG btnOut">▶ Production</a>
+    </div>
+  </div>
+  <div class="hScr"><p>SCROLL</p></div>
+</section>
+
+<!-- TICKER -->
+<div id="ticker">
+  <div class="tkT">
+    <div class="tkI">✦ VK SON CREATIVE STUDIO</div>
+    <div class="tkI">✦ FASHION · GADGETS · TRAVEL</div>
+    <div class="tkI">✦ FILM PRODUCTION & DIRECTION</div>
+    <div class="tkI">✦ STUDIO EDITING & VIDEOGRAPHY</div>
+    <div class="tkI">✦ PRE & POST PRODUCTION</div>
+    <div class="tkI">✦ SONG COMPOSITION · MUSIC</div>
+    <div class="tkI">✦ WEDDING · COMMERCIAL SHOOTS</div>
+    <div class="tkI">✦ VK SON CREATIVE STUDIO</div>
+    <div class="tkI">✦ FASHION · GADGETS · TRAVEL</div>
+    <div class="tkI">✦ FILM PRODUCTION & DIRECTION</div>
+    <div class="tkI">✦ STUDIO EDITING & VIDEOGRAPHY</div>
+    <div class="tkI">✦ PRE & POST PRODUCTION</div>
+    <div class="tkI">✦ SONG COMPOSITION · MUSIC</div>
+    <div class="tkI">✦ WEDDING · COMMERCIAL SHOOTS</div>
+  </div>
+</div>
+
+<!-- SPLIT PANEL -->
+<div id="frontSplit">
+  <div class="spBiz" onclick="location.href='#business'">
+    <div class="spBg"></div>
+    <div class="spColor"></div>
+    <div class="spContent">
+      <div class="spIcon">🏢</div>
+      <h2 class="spTitle">Our Business</h2>
+      <p class="spSub">10 diverse business verticals — Fashion, Gadgets, Auto Mobile, Travelling, Online Shopping, Green-City and more.</p>
+      <div class="spItems">
+        <span class="spItem">Fashion</span><span class="spItem">Gadgets</span><span class="spItem">Auto Mobile</span>
+        <span class="spItem">Travelling</span><span class="spItem">Shopping</span><span class="spItem">Green-City</span>
+      </div>
+      <div class="spBtn">Explore Business →</div>
+    </div>
+  </div>
+  <div class="spDivider"></div>
+  <div class="spVS">VS</div>
+  <div class="spProd" onclick="location.href='#production'">
+    <div class="spBg"></div>
+    <div class="spColor"></div>
+    <div class="spContent">
+      <div class="spIcon">🎬</div>
+      <h2 class="spTitle">Film Production</h2>
+      <p class="spSub">8 end-to-end production services — Writing, Directing, Music, Editing, Distribution, Song Composer and more.</p>
+      <div class="spItems">
+        <span class="spItem">Writing & Directing</span><span class="spItem">Music Directing</span>
+        <span class="spItem">Video Graphic</span><span class="spItem">Song Composer</span>
+        <span class="spItem">Distribution</span><span class="spItem">Copy-Writes</span>
+      </div>
+      <div class="spBtn">Explore Production →</div>
+    </div>
+  </div>
+</div>
+
+<!-- BUSINESS -->
+<section id="business">
+  <div class="sLbl rv">Our Verticals</div>
+  <h2 class="sTit rv d1">Business <em>Categories</em></h2>
+  <div class="bizGrid">
+    <div class="bizCard rv d1"><span class="bizIcon">👗</span><div class="bizName">Fashion</div><p class="bizDesc">Curating style, trends and fashion content across all platforms.</p></div>
+    <div class="bizCard rv d2"><span class="bizIcon">📱</span><div class="bizName">Gadgets</div><p class="bizDesc">Reviewing and showcasing the latest in tech and gadgets.</p></div>
+    <div class="bizCard rv d3"><span class="bizIcon">🚗</span><div class="bizName">Auto Mobile</div><p class="bizDesc">Automotive content, reviews and brand collaborations.</p></div>
+    <div class="bizCard rv d4"><span class="bizIcon">⚙️</span><div class="bizName">Real-Gadgets</div><p class="bizDesc">Hands-on real-world gadget testing and authentic reviews.</p></div>
+    <div class="bizCard rv d5"><span class="bizIcon">🎨</span><div class="bizName">Vintage</div><p class="bizDesc">Celebrating retro aesthetics, vintage finds and classic culture.</p></div>
+    <div class="bizCard rv d1"><span class="bizIcon">🏖️</span><div class="bizName">Beach</div><p class="bizDesc">Lifestyle content from stunning coastal and beach destinations.</p></div>
+    <div class="bizCard rv d2"><span class="bizIcon">✈️</span><div class="bizName">Travelling</div><p class="bizDesc">Travel diaries, destination guides and wanderlust-filled stories.</p></div>
+    <div class="bizCard rv d3"><span class="bizIcon">🛒</span><div class="bizName">Online Shopping</div><p class="bizDesc">E-commerce partnerships, shopping guides and product reviews.</p></div>
+    <div class="bizCard rv d4"><span class="bizIcon">🛩️</span><div class="bizName">Air Craft</div><p class="bizDesc">Aviation content, aircraft showcases and aerial photography.</p></div>
+    <div class="bizCard rv d5"><span class="bizIcon">🌿</span><div class="bizName">Green-City</div><p class="bizDesc">Sustainable cities, eco-friendly living and green initiatives.</p></div>
+  </div>
+</section>
+
+<!-- PRODUCTION -->
+<section id="production">
+  <div class="sLbl rv">Our Expertise</div>
+  <h2 class="sTit rv d1">Film <em>Production</em> Services</h2>
+  <div class="prodGrid">
+    <div class="prodCard rv d1"><span class="prodIcon">✍️</span><div class="prodName">Writing & Directing</div><p class="prodDesc">Crafting compelling narratives and bringing them to life on screen.</p><span class="prodTag">Core Service</span></div>
+    <div class="prodCard rv d2"><span class="prodIcon">🎵</span><div class="prodName">Music Directing</div><p class="prodDesc">Creating the emotional soundscape of your film with expert direction.</p><span class="prodTag">Core Service</span></div>
+    <div class="prodCard rv d3"><span class="prodIcon">🎬</span><div class="prodName">Editing & Video Graphic</div><p class="prodDesc">Precision editing and stunning video graphics that elevate every frame.</p><span class="prodTag">Core Service</span></div>
+    <div class="prodCard rv d4"><span class="prodIcon">🎼</span><div class="prodName">Song Composer</div><p class="prodDesc">Original song composition tailored to your project's mood and story.</p><span class="prodTag">Core Service</span></div>
+    <div class="prodCard rv d5"><span class="prodIcon">🌐</span><div class="prodName">Film Distribution</div><p class="prodDesc">Strategic distribution across theatres, OTT and international markets.</p><span class="prodTag">Core Service</span></div>
+    <div class="prodCard rv d1"><span class="prodIcon">©️</span><div class="prodName">Copy-Writes</div><p class="prodDesc">Protecting your intellectual property with copyright management.</p><span class="prodTag">Core Service</span></div>
+    <div class="prodCard rv d2"><span class="prodIcon">🎥</span><div class="prodName">Pre-Production</div><p class="prodDesc">Thorough planning — scripting, budgeting, casting and location scouting.</p><span class="prodTag">Core Service</span></div>
+    <div class="prodCard rv d3"><span class="prodIcon">🖥️</span><div class="prodName">Post Production</div><p class="prodDesc">Polishing your film with colour grading, sound design and VFX.</p><span class="prodTag">Core Service</span></div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="sLbl rv">Our Content</div>
+  <h2 class="sTit rv d1">Watch <em>Our Work</em></h2>
+  <p class="rv d2" style="color:var(--slate);font-size:.9rem;margin-top:.5rem">Click any video to see details &amp; reviews — then hit Watch to play 🎬</p>
+
+  <!-- Static 3 channel cards -->
+  <div class="videoGrid" id="staticVideoGrid">
+    <div class="videoCard rv d1" onclick="openVideoModal('static_music')">
+      <div class="videoCardThumb"><span class="vcThumbIcon">🎵</span><div class="vcPlayBtn"><span>▶</span></div><span class="vcPlatBadge">YOUTUBE</span></div>
+      <div class="vcBody">
+        <div class="vcTitle">VK Son Music</div>
+        <div class="vcDesc">Original music compositions and songs — feel the rhythm of our creative soul through every track.</div>
+        <div class="vcMeta"><span class="vcReviewCount" id="staticRevCount_music">⭐ 0 reviews</span><span class="vcCategoryBadge">MUSIC</span></div>
+      </div>
+    </div>
+    <div class="videoCard rv d2" onclick="openVideoModal('static_amari')">
+      <div class="videoCardThumb"><span class="vcThumbIcon">🎤</span><div class="vcPlayBtn"><span>▶</span></div><span class="vcPlatBadge">YOUTUBE</span></div>
+      <div class="vcBody">
+        <div class="vcTitle">Amari Vato</div>
+        <div class="vcDesc">Creative music videos and artistic content — where bold visuals meet compelling storytelling.</div>
+        <div class="vcMeta"><span class="vcReviewCount" id="staticRevCount_amari">⭐ 0 reviews</span><span class="vcCategoryBadge">MUSIC</span></div>
+      </div>
+    </div>
+    <div class="videoCard rv d3" onclick="openVideoModal('static_prodhouse')">
+      <div class="videoCardThumb"><span class="vcThumbIcon">🏭</span><div class="vcPlayBtn"><span>▶</span></div><span class="vcPlatBadge">INSTAGRAM</span></div>
+      <div class="vcBody">
+        <div class="vcTitle">Production House</div>
+        <div class="vcDesc">Professional production work and behind-the-scenes footage from our studio operations.</div>
+        <div class="vcMeta"><span class="vcReviewCount" id="staticRevCount_prodhouse">⭐ 0 reviews</span><span class="vcCategoryBadge">PRODUCTION</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic videos added by Admin -->
+  <div id="dynamicVideos"></div>
+
+  <div class="socialLinksWrap" style="margin-top:3rem">
+    <a href="https://www.instagram.com/v.k_son_music" target="_blank" class="socialIcon">📷 @v.k_son_music</a>
+    <a href="https://www.instagram.com/amari_vato.1" target="_blank" class="socialIcon">📷 @amari_vato.1</a>
+    <a href="https://www.instagram.com/vk_son_production_house" target="_blank" class="socialIcon">📷 @vk_son_production_house</a>
+    <a href="https://youtube.com/@v.ksonmusic" target="_blank" class="socialIcon">🎬 @v.ksonmusic</a>
+    <a href="https://youtube.com/@amari_vato" target="_blank" class="socialIcon">🎬 @amari_vato</a>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section id="studio">
+  <div class="sLbl rv">Videography</div>
+  <h2 class="sTit rv d1">Studio Editing <em>&amp; Videographer</em></h2>
+  <div class="studioWrap">
+    <div class="studioLeft">
+      <div class="studioCards">
+        <div class="sCard"><span class="sCardIcon">💍</span><div class="sCardName">Wedding</div><p class="sCardDesc">Cinematic wedding films that capture every emotion.</p></div>
+        <div class="sCard"><span class="sCardIcon">📣</span><div class="sCardName">Private Commercial</div><p class="sCardDesc">High-impact commercial videos for brands.</p></div>
+        <div class="sCard"><span class="sCardIcon">⭐</span><div class="sCardName">Influencer</div><p class="sCardDesc">Content creation for YouTube, Instagram and more.</p></div>
+        <div class="sCard"><span class="sCardIcon">💕</span><div class="sCardName">Pre-Wedding</div><p class="sCardDesc">Dreamy pre-wedding shoots with cinematic editing.</p></div>
+      </div>
+    </div>
+    <div class="studioRight">
+      <img class="studioImg" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&q=80" alt="Studio">
+      <div class="studioStat"><div class="stSSN">100+</div><div class="stSSL">Projects</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRE-PRODUCTION -->
+<section id="preproduction">
+  <div class="sLbl rv">Planning Phase</div>
+  <h2 class="sTit rv d1"><em>Pre-Production</em> Process</h2>
+  <div class="preProdTimeline">
+    <div class="ppItem rv d1"><div class="ppDot">01</div><div class="ppContent"><div class="ppName">Script Loading</div><p class="ppDesc">Developing, refining and finalising the script — the foundation of every production.</p></div></div>
+    <div class="ppItem rv d2"><div class="ppDot">02</div><div class="ppContent"><div class="ppName">Budgeting</div><p class="ppDesc">Detailed budget planning to maximise quality while controlling costs.</p></div></div>
+    <div class="ppItem rv d3"><div class="ppDot">03</div><div class="ppContent"><div class="ppName">Location Shooting</div><p class="ppDesc">Scouting and securing perfect locations that bring the script to life.</p></div></div>
+    <div class="ppItem rv d4"><div class="ppDot">04</div><div class="ppContent"><div class="ppName">Casting</div><p class="ppDesc">Finding the right talent for every role from lead to supporting cast.</p></div></div>
+    <div class="ppItem rv d5"><div class="ppDot">05</div><div class="ppContent"><div class="ppName">Hiring Crew</div><p class="ppDesc">Assembling a world-class crew of directors, cinematographers and more.</p></div></div>
+    <div class="ppItem rv d1"><div class="ppDot">06</div><div class="ppContent"><div class="ppName">Scheduling</div><p class="ppDesc">Building detailed schedules to ensure efficient use of time and resources.</p></div></div>
+    <div class="ppItem rv d2"><div class="ppDot">07</div><div class="ppContent"><div class="ppName">Story Boarding</div><p class="ppDesc">Visualising every scene with detailed storyboards before the camera rolls.</p></div></div>
+    <div class="ppItem rv d3"><div class="ppDot">08</div><div class="ppContent"><div class="ppName">Art & Costume</div><p class="ppDesc">Designing sets, props and costumes that authentically represent the story.</p></div></div>
+  </div>
+</section>
+
+<!-- POST-PRODUCTION -->
+<section id="postproduction">
+  <div class="sLbl rv">Finishing Phase</div>
+  <h2 class="sTit rv d1"><em>Post-Production</em> Pipeline</h2>
+  <div class="ppGrid">
+    <div class="ppCard rv d1"><div class="ppStepNum">01</div><div class="ppCName">Video Editing</div><p class="ppCDesc">Precision editing that builds rhythm and emotion through every cut.</p></div>
+    <div class="ppCard rv d2"><div class="ppStepNum">02</div><div class="ppCName">Design Mixing</div><p class="ppCDesc">Professional audio mixing and sound design for cinematic impact.</p></div>
+    <div class="ppCard rv d3"><div class="ppStepNum">03</div><div class="ppCName">Music Score</div><p class="ppCDesc">Original scores that emotionally connect audiences to your story.</p></div>
+    <div class="ppCard rv d4"><div class="ppStepNum">04</div><div class="ppCName">Colour Grading</div><p class="ppCDesc">Cinematic colour grading that establishes mood and visual consistency.</p></div>
+    <div class="ppCard rv d5"><div class="ppStepNum">05</div><div class="ppCName">Graphic Title</div><p class="ppCDesc">Stunning title sequences and motion graphics that set the tone.</p></div>
+    <div class="ppCard rv d1"><div class="ppStepNum">06</div><div class="ppCName">Final Rendering</div><p class="ppCDesc">High-quality final delivery in all required formats.</p></div>
+  </div>
+</section>
+
+<!-- STUDIO REVIEWS (Public) -->
+<section id="reviews">
+  <div class="sLbl rv">Client Reviews</div>
+  <h2 class="sTit rv d1">What <em>Clients Say</em></h2>
+  <div class="reviewsPublicGrid" id="publicReviews"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="aboutWrap">
+    <div>
+      <div class="sLbl rv">Who We Are</div>
+      <h2 class="sTit rv d1">About <em>VK Son</em></h2>
+      <p class="aboutBody rv d2">VK Son is a multi-disciplinary creative studio operating across business, film production, studio editing and videography. We combine creative excellence with technical expertise to deliver projects that leave a lasting impact — from fashion campaigns to feature films.</p>
+      <blockquote class="aboutQ rv d3">"Where vision meets creation — we don't just produce content, we craft experiences."</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="ctWrap">
+    <div>
+      <div class="sLbl rv">Get In Touch</div>
+      <h2 class="sTit rv d1">Work <em>With VK Son</em></h2>
+      <div class="ctItem"><div class="ctIco">✉</div><div><div class="ctLbl">Email</div><div class="ctVal">hello@vkson.com</div></div></div>
+      <div class="ctItem"><div class="ctIco">📱</div><div><div class="ctLbl">Phone</div><div class="ctVal">+91 98765 43210</div></div></div>
+      <div class="ctItem"><div class="ctIco">📍</div><div><div class="ctLbl">Studio</div><div class="ctVal">Ahmedabad, Gujarat, India</div></div></div>
+    </div>
+    <div>
+      <div class="fgRow">
+        <div class="fg"><input type="text" id="uName" placeholder="Your Name *" required></div>
+        <div class="fg"><input type="email" id="uEmail" placeholder="Your Email *" required></div>
+      </div>
+      <div class="fg"><input type="tel" id="uPhone" placeholder="Phone Number (optional)"></div>
+      <div class="fg">
+        <select id="uService">
+          <option value="">Select Service *</option>
+          <option>Fashion Business</option><option>Film Production</option><option>Studio Shoot</option>
+          <option>Post Production</option><option>Wedding Videography</option><option>Music Direction</option>
+          <option>Song Composition</option><option>Commercial Video</option>
+        </select>
+      </div>
+      <div class="fg"><textarea id="uMsg" rows="4" placeholder="Tell us about your project... *" required></textarea></div>
+      <button class="fSub" id="sendBtn" onclick="sendContactForm()">Send Message →</button>
+      <div class="formMsg" id="formMsg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftTop">
+    <div>
+      <div class="ftLogo">VK SON</div>
+      <p class="ftTag">A multi-disciplinary creative studio — business, film production, studio editing and beyond.</p>
+      <div class="ftSocial">
+        <a href="https://www.instagram.com/v.k_son_music" target="_blank">📷 Instagram</a>
+        <a href="https://youtube.com/@v.ksonmusic" target="_blank">🎬 YouTube</a>
+      </div>
+    </div>
+    <div><div class="ftColT">Business</div><ul class="ftLinks"><li><a href="#">Fashion</a></li><li><a href="#">Gadgets</a></li><li><a href="#">Travel</a></li><li><a href="#">Green-City</a></li></ul></div>
+    <div><div class="ftColT">Production</div><ul class="ftLinks"><li><a href="#">Directing</a></li><li><a href="#">Music</a></li><li><a href="#">Editing</a></li><li><a href="#">Distribution</a></li></ul></div>
+    <div><div class="ftColT">Studio</div><ul class="ftLinks"><li><a href="#">Wedding</a></li><li><a href="#">Commercial</a></li><li><a href="#">Influencer</a></li><li><a href="#">Pre-Wedding</a></li></ul></div>
+  </div>
+  <div class="ftBot">
+    <div>© 2025 VK Son Creative Studio. All Rights Reserved.</div>
+    <div>Follow: <a href="https://www.instagram.com/v.k_son_music" style="color:var(--pink)" target="_blank">@v.k_son_music</a></div>
+  </div>
+</footer>
+
+<div id="btt">↑</div>
+<div id="adminBtn" title="Admin Panel">⚙</div>
+
+<!-- ═══════════════════════════════════════
+  USER AUTH MODAL
+═══════════════════════════════════════ -->
+<div class="authModal" id="authModal">
+  <div class="authModalBg" onclick="closeAuth()" style="position:absolute;inset:0"></div>
+  <div class="authBox">
+    <div class="authClose" onclick="closeAuth()">✕</div>
+    <div class="authHeader">
+      <div class="authHeaderIcon" id="authIcon">👤</div>
+      <div class="authHeaderTitle" id="authTitle">Welcome <em>Back</em></div>
+    </div>
+    <div class="authTabs">
+      <div class="authTab active" id="tabLogin" onclick="switchAuthTab('login')">Login</div>
+      <div class="authTab" id="tabSignup" onclick="switchAuthTab('signup')">Sign Up</div>
+    </div>
+    <div class="authBody">
+      <div class="authErr" id="authErr"></div>
+      <div class="authSuccess" id="authSucc"></div>
+
+      <!-- LOGIN FORM -->
+      <div id="loginForm">
+        <div class="authField"><label>Email Address</label><input type="email" id="lEmail" placeholder="you@example.com" onkeydown="if(event.key==='Enter')doUserLogin()"></div>
+        <div class="authField"><label>Password</label><input type="password" id="lPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doUserLogin()"></div>
+        <button class="authSubmitBtn" onclick="doUserLogin()">Login →</button>
+        <div class="authSwitch">Don't have an account? <span onclick="switchAuthTab('signup')">Sign Up</span></div>
+      </div>
+
+      <!-- SIGNUP FORM -->
+      <div id="signupForm" style="display:none">
+        <div class="authField"><label>Full Name</label><input type="text" id="sName" placeholder="Your full name"></div>
+        <div class="authField"><label>Email Address</label><input type="email" id="sEmail" placeholder="you@example.com"></div>
+        <div class="authField">
+          <label>Password</label>
+          <input type="password" id="sPass" placeholder="Min 6 characters" oninput="checkPassStrength(this.value)">
+          <div class="passStrength"><div class="psBar" id="ps1"></div><div class="psBar" id="ps2"></div><div class="psBar" id="ps3"></div><div class="psBar" id="ps4"></div></div>
+        </div>
+        <div class="authField"><label>Confirm Password</label><input type="password" id="sPass2" placeholder="Re-enter password" onkeydown="if(event.key==='Enter')doUserSignup()"></div>
+        <button class="authSubmitBtn" onclick="doUserSignup()">Create Account →</button>
+        <div class="authSwitch">Already have an account? <span onclick="switchAuthTab('login')">Login</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+  VIDEO MODAL
+═══════════════════════════════════════ -->
+<div class="vModal" id="videoModal">
+  <div class="vModalBg" onclick="closeVideoModal()"></div>
+  <div class="vModalBox">
+    <div class="vModalClose" onclick="closeVideoModal()">✕</div>
+    <div class="vModalThumb" id="vModalThumb">
+      <span class="vModalThumbIcon" id="vModalThumbIcon">🎬</span>
+      <span class="vModalPlatBadge" id="vModalPlatBadge">YOUTUBE</span>
+    </div>
+    <div class="vModalContent">
+      <div class="vModalCategory" id="vModalCategory">MUSIC</div>
+      <div class="vModalTitle" id="vModalTitle">Video Title</div>
+      <div class="vModalDesc" id="vModalDesc">Description goes here...</div>
+      <button class="vModalWatchBtn" id="vModalWatchBtn">▶ Watch Video</button>
+
+      <!-- VIDEO REVIEWS -->
+      <div class="vReviewSection">
+        <div class="vRevTitle">⭐ Reviews &amp; Comments</div>
+        <div class="vRevList" id="vRevList"></div>
+        <div id="vRevFormArea"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN MODALS (unchanged) -->
+<div id="adminModal">
+  <div class="adminLoginBox">
+    <div style="font-size:2.5rem;margin-bottom:.5rem">🔐</div>
+    <h2>Admin <em style="background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Login</em></h2>
+    <p>Enter admin credentials to access the dashboard</p>
+    <input class="aInput" type="text" id="aUser" placeholder="Username">
+    <input class="aInput" type="password" id="aPass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="aErr" id="aErr">❌ Invalid username or password</div>
+    <button class="aBtn" onclick="doLogin()">Login →</button>
+    <button class="aBtnCancel" onclick="closeAdminModal()">Cancel</button>
+  </div>
+</div>
+
+<div id="adminDash">
+  <div class="dashNav">
+    <div class="dashLogo">VK SON — Admin</div>
+    <div class="dashTabs">
+      <button class="dTab active" onclick="switchTab('overview',event)">📊 Overview</button>
+      <button class="dTab" onclick="switchTab('videos',event)">🎬 Videos</button>
+      <button class="dTab" onclick="switchTab('messages',event)">✉ Messages <span id="msgNotif" class="notifDot" style="display:none"></span></button>
+      <button class="dTab" onclick="switchTab('reviews',event)">⭐ Reviews</button>
+      <button class="dTab" onclick="switchTab('users',event)">👥 Users</button>
+    </div>
+    <button class="dashLogout" onclick="adminLogout()">Logout</button>
+  </div>
+  <div class="dashBody">
+
+    <!-- OVERVIEW -->
+    <div class="dashPanel active" id="panel-overview">
+      <div class="dashTitle">Dashboard <em style="background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Overview</em></div>
+      <div class="dashSubtitle">Welcome back! Here's your studio at a glance.</div>
+      <div class="statsRow">
+        <div class="statCard"><div class="num" id="ovVideos">0</div><div class="lbl">VIDEOS ADDED</div></div>
+        <div class="statCard"><div class="num" id="ovMessages">0</div><div class="lbl">TOTAL MESSAGES</div></div>
+        <div class="statCard"><div class="num" id="ovUnread">0</div><div class="lbl">UNREAD MESSAGES</div></div>
+        <div class="statCard"><div class="num" id="ovUsers">0</div><div class="lbl">REGISTERED USERS</div></div>
+      </div>
+      <div style="background:var(--deep);border-radius:16px;padding:1.5rem">
+        <h3 style="font-family:var(--F1);margin-bottom:1rem">Recent Messages</h3>
+        <div id="recentMsgs"></div>
+      </div>
+    </div>
+
+    <!-- VIDEOS PANEL -->
+    <div class="dashPanel" id="panel-videos">
+      <div class="dashTitle">Manage <em style="background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Videos</em></div>
+      <div class="dashSubtitle">Add, edit or remove videos shown on the website.</div>
+      <div class="addForm">
+        <h3>➕ Add New Video</h3>
+        <div class="aFRow">
+          <div><input type="text" id="vTitle" placeholder="Video Title *"></div>
+          <div><select id="vPlatform"><option value="">Select Platform *</option><option value="youtube">YouTube</option><option value="instagram">Instagram</option><option value="vimeo">Vimeo</option><option value="other">Other</option></select></div>
+        </div>
+        <div class="aFull"><input type="url" id="vLink" placeholder="Video Link / URL *"></div>
+        <div class="aFull"><input type="url" id="vThumb" placeholder="Thumbnail Image URL (optional)"></div>
+        <div class="aFull"><textarea id="vDesc" placeholder="Detailed description about this video (users will see this in modal)..."></textarea></div>
+        <div class="aFRow">
+          <div><select id="vCategory"><option value="general">General</option><option value="music">Music</option><option value="production">Production</option><option value="wedding">Wedding</option><option value="commercial">Commercial</option></select></div>
+          <div><input type="text" id="vEmoji" placeholder="Emoji icon (e.g. 🎵)" maxlength="4"></div>
+        </div>
+        <button class="aSubmitBtn" onclick="addVideo()">Add Video →</button>
+      </div>
+      <h3 style="font-family:var(--F1);margin-bottom:1rem">Published Videos (<span id="videoCount">0</span>)</h3>
+      <div class="videoListGrid" id="adminVideoList"></div>
+    </div>
+
+    <!-- MESSAGES PANEL -->
+    <div class="dashPanel" id="panel-messages">
+      <div class="dashTitle">User <em style="background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Messages</em></div>
+      <div class="dashSubtitle">All contact form submissions from users.</div>
+      <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+        <button class="aSubmitBtn" style="font-size:.75rem;padding:.5rem 1.2rem" onclick="filterMsgs('all')">All</button>
+        <button class="aSubmitBtn" style="font-size:.75rem;padding:.5rem 1.2rem;background:rgba(68,49,141,.5)" onclick="filterMsgs('unread')">Unread</button>
+        <button class="aSubmitBtn" style="font-size:.75rem;padding:.5rem 1.2rem;background:rgba(74,222,128,.2);color:#4ADE80" onclick="filterMsgs('read')">Read</button>
+      </div>
+      <div class="msgList" id="adminMsgList"></div>
+    </div>
+
+    <!-- REVIEWS PANEL -->
+    <div class="dashPanel" id="panel-reviews">
+      <div class="dashTitle">Manage <em style="background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Reviews</em></div>
+      <div class="dashSubtitle">Studio reviews added by admin. User video reviews are per-video.</div>
+      <div class="reviewForm addForm">
+        <h3>➕ Add Studio Review</h3>
+        <div class="aFRow">
+          <div><input type="text" id="rAuthor" placeholder="Client Name *"></div>
+          <div><input type="text" id="rRole" placeholder="Role / Company"></div>
+        </div>
+        <div class="aFull"><select id="rStars"><option value="5">⭐⭐⭐⭐⭐ 5 Stars</option><option value="4">⭐⭐⭐⭐ 4 Stars</option><option value="3">⭐⭐⭐ 3 Stars</option></select></div>
+        <div class="aFull"><textarea id="rText" placeholder="Review text *" rows="3"></textarea></div>
+        <button class="aSubmitBtn" onclick="addReview()">Add Review →</button>
+      </div>
+      <h3 style="font-family:var(--F1);margin-bottom:1rem">Studio Reviews (<span id="reviewCount">0</span>)</h3>
+      <div class="reviewList" id="adminReviewList"></div>
+    </div>
+
+    <!-- USERS PANEL -->
+    <div class="dashPanel" id="panel-users">
+      <div class="dashTitle">Registered <em style="background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Users</em></div>
+      <div class="dashSubtitle">All users who have signed up on the website.</div>
+      <div id="adminUserList"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+  SCRIPTS
+═══════════════════════════════════════════════════════ -->
+<script>
+// ── Config ──────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+const ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL@gmail.com';
+const ADMIN_USER  = 'vkson_admin';
+const ADMIN_PASS  = 'VKSon@2025!';
+
+try{ emailjs.init(EMAILJS_PUBLIC_KEY); }catch(e){}
+
+// ── Storage Keys ─────────────────────────────────────────────
+const KEY_VIDEOS   = 'vkson_videos';
+const KEY_MESSAGES = 'vkson_messages';
+const KEY_REVIEWS  = 'vkson_reviews';
+const KEY_USERS    = 'vkson_users';
+const KEY_VREVIEWS = 'vkson_video_reviews'; // per-video reviews by users
+const KEY_SESSION  = 'vkson_session';
+
+// ── Data Helpers ──────────────────────────────────────────────
+function getData(k){ try{ return JSON.parse(localStorage.getItem(k))||[]; }catch{ return []; } }
+function setData(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
+function getObj(k){ try{ return JSON.parse(localStorage.getItem(k))||{}; }catch{ return {}; } }
+function setObj(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
+
+// ── Session ───────────────────────────────────────────────────
+let currentUser = null;
+function getSession(){ return JSON.parse(localStorage.getItem(KEY_SESSION)||'null'); }
+function setSession(u){ localStorage.setItem(KEY_SESSION, JSON.stringify(u)); currentUser=u; }
+function clearSession(){ localStorage.removeItem(KEY_SESSION); currentUser=null; }
+
+// ── Reveal Observer ───────────────────────────────────────────
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>observer.observe(el));
+
+// ── Preloader ─────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  currentUser = getSession();
+  updateNavUser();
+  setTimeout(()=>{ document.getElementById('pre').classList.add('gone'); }, 2000);
+  renderPublicVideos();
+  renderPublicReviews();
+  updateStaticReviewCounts();
+  checkUnread();
+});
+
+// ── Nav Scroll ────────────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('sc', window.scrollY>50);
+  document.getElementById('btt').classList.toggle('show', window.scrollY>500);
+});
+document.getElementById('btt').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// ── Mobile Menu ───────────────────────────────────────────────
+const hbg=document.getElementById('hbg'), mMenu=document.getElementById('mMenu');
+hbg.addEventListener('click',()=>{ hbg.classList.toggle('open'); mMenu.classList.toggle('open'); });
+function closeMob(){ hbg.classList.remove('open'); mMenu.classList.remove('open'); }
+document.querySelectorAll('.mMenu a').forEach(a=>a.addEventListener('click',closeMob));
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+  anchor.addEventListener('click',function(e){
+    e.preventDefault();
+    const t=document.querySelector(this.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth'});
+    closeMob();
+  });
+});
+
+// close user dropdown on outside click
+document.addEventListener('click',e=>{
+  const wrap=document.querySelector('.nUserWrap');
+  if(wrap && !wrap.contains(e.target)) document.getElementById('userDrop')?.classList.remove('open');
+});
+
+// ═══════════════════════════════════════
+// USER AUTHENTICATION
+// ═══════════════════════════════════════
+function openAuth(mode){
+  const modal=document.getElementById('authModal');
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+  clearAuthMsgs();
+  if(mode==='signup') switchAuthTab('signup');
+  else switchAuthTab('login');
+}
+function closeAuth(){
+  document.getElementById('authModal').classList.remove('open');
+  document.body.style.overflow='';
+  clearAuthMsgs();
+}
+function clearAuthMsgs(){
+  document.getElementById('authErr').style.display='none';
+  document.getElementById('authSucc').style.display='none';
+  document.getElementById('authErr').textContent='';
+  document.getElementById('authSucc').textContent='';
+}
+function showAuthErr(msg){ const e=document.getElementById('authErr'); e.textContent=msg; e.style.display='block'; }
+function showAuthOk(msg){ const e=document.getElementById('authSucc'); e.textContent=msg; e.style.display='block'; }
+
+function switchAuthTab(tab){
+  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('tabSignup').classList.toggle('active', tab==='signup');
+  document.getElementById('loginForm').style.display = tab==='login'?'block':'none';
+  document.getElementById('signupForm').style.display = tab==='signup'?'block':'none';
+  document.getElementById('authIcon').textContent = tab==='login'?'🔐':'✨';
+  document.getElementById('authTitle').innerHTML = tab==='login'?'Welcome <em>Back</em>':'Create <em>Account</em>';
+  clearAuthMsgs();
+}
+
+function doUserSignup(){
+  const name  = document.getElementById('sName').value.trim();
+  const email = document.getElementById('sEmail').value.trim().toLowerCase();
+  const pass  = document.getElementById('sPass').value;
+  const pass2 = document.getElementById('sPass2').value;
+  clearAuthMsgs();
+  if(!name||!email||!pass){ showAuthErr('Please fill all fields.'); return; }
+  if(!email.includes('@')){ showAuthErr('Please enter a valid email address.'); return; }
+  if(pass.length<6){ showAuthErr('Password must be at least 6 characters.'); return; }
+  if(pass!==pass2){ showAuthErr('Passwords do not match.'); return; }
+  const users = getData(KEY_USERS);
+  if(users.find(u=>u.email===email)){ showAuthErr('An account with this email already exists.'); return; }
+  const newUser = { id:Date.now(), name, email, pass: btoa(pass), joined: new Date().toLocaleString('en-IN') };
+  users.push(newUser);
+  setData(KEY_USERS, users);
+  showAuthOk('✅ Account created! Logging you in...');
+  setTimeout(()=>{
+    const safeUser = {id:newUser.id, name:newUser.name, email:newUser.email};
+    setSession(safeUser);
+    updateNavUser();
+    closeAuth();
+  }, 1200);
+}
+
+function doUserLogin(){
+  const email = document.getElementById('lEmail').value.trim().toLowerCase();
+  const pass  = document.getElementById('lPass').value;
+  clearAuthMsgs();
+  if(!email||!pass){ showAuthErr('Please enter your email and password.'); return; }
+  const users = getData(KEY_USERS);
+  const user  = users.find(u=>u.email===email && atob(u.pass)===pass);
+  if(!user){ showAuthErr('❌ Incorrect email or password.'); return; }
+  const safeUser = {id:user.id, name:user.name, email:user.email};
+  setSession(safeUser);
+  updateNavUser();
+  showAuthOk('✅ Welcome back, '+user.name+'!');
+  setTimeout(closeAuth, 1000);
+}
+
+function userLogout(){
+  clearSession();
+  updateNavUser();
+  document.getElementById('userDrop').classList.remove('open');
+}
+
+function updateNavUser(){
+  const loggedIn = !!currentUser;
+  document.getElementById('navAuthBtns').style.display = loggedIn ? 'none' : '';
+  document.getElementById('navUserArea').style.display = loggedIn ? '' : 'none';
+  document.getElementById('mobAuthBtn').style.display  = loggedIn ? 'none' : '';
+  if(loggedIn && currentUser){
+    document.getElementById('navAvatar').textContent  = currentUser.name.charAt(0).toUpperCase();
+    document.getElementById('navUserName').textContent = currentUser.name.split(' ')[0];
+  }
+  // Refresh open video modal review area
+  if(currentVideoId) renderModalReviews(currentVideoId);
+}
+
+function toggleUserDrop(){
+  document.getElementById('userDrop').classList.toggle('open');
+}
+
+// Password strength
+function checkPassStrength(p){
+  const bars=[document.getElementById('ps1'),document.getElementById('ps2'),document.getElementById('ps3'),document.getElementById('ps4')];
+  bars.forEach(b=>{ b.className='psBar'; });
+  if(!p) return;
+  let strength=0;
+  if(p.length>=6) strength++;
+  if(p.length>=10) strength++;
+  if(/[A-Z]/.test(p)&&/[0-9]/.test(p)) strength++;
+  if(/[^A-Za-z0-9]/.test(p)) strength++;
+  const cls=['weak','fair','good','strong'];
+  for(let i=0;i<strength;i++) bars[i].classList.add(cls[strength-1]);
+}
+
+// ═══════════════════════════════════════
+// VIDEO MODAL
+// ═══════════════════════════════════════
+let currentVideoId = null;
+
+// Static video data
+const staticVideos = {
+  'static_music': {
+    id:'static_music', title:'VK Son Music', platform:'youtube',
+    link:'https://youtube.com/@v.ksonmusic', emoji:'🎵', category:'music',
+    desc:'Dive into the world of VK Son Music — a curated YouTube channel featuring original compositions, soul-stirring melodies, and tracks that blend contemporary sounds with traditional influences. From ambient scores to high-energy beats, every track is crafted with passion and precision.'
+  },
+  'static_amari': {
+    id:'static_amari', title:'Amari Vato', platform:'youtube',
+    link:'https://youtube.com/@amari_vato', emoji:'🎤', category:'music',
+    desc:'Amari Vato is the creative outlet for bold, experimental music videos and artistic audiovisual content. Expect vivid visuals paired with compelling storytelling — a channel that pushes the boundaries of music and cinema. Collaborations with emerging artists and behind-the-scenes content.'
+  },
+  'static_prodhouse': {
+    id:'static_prodhouse', title:'Production House', platform:'instagram',
+    link:'https://www.instagram.com/vk_son_production_house', emoji:'🏭', category:'production',
+    desc:'Get an exclusive look at VK Son Production House on Instagram — professional shoots, set life, behind-the-scenes clips, and completed project showcases. From wedding cinematography to corporate films, see our full spectrum of production work across different genres and styles.'
+  }
+};
+
+function openVideoModal(videoId){
+  const vid = staticVideos[videoId] || getData(KEY_VIDEOS).find(v=>v.id==videoId);
+  if(!vid) return;
+  currentVideoId = videoId;
+
+  // Thumb
+  const thumbEl = document.getElementById('vModalThumb');
+  if(vid.thumb){
+    thumbEl.innerHTML = `<img src="${vid.thumb}" alt="${vid.title}" onerror="this.parentNode.innerHTML='<span class=vModalThumbIcon>${vid.emoji||'🎬'}</span>'"><span class="vModalPlatBadge" id="vModalPlatBadge">${(vid.platform||'').toUpperCase()}</span>`;
+  } else {
+    thumbEl.innerHTML = `<span class="vModalThumbIcon">${vid.emoji||'🎬'}</span><span class="vModalPlatBadge">${(vid.platform||'').toUpperCase()}</span>`;
+  }
+
+  document.getElementById('vModalCategory').textContent = (vid.category||'video').toUpperCase();
+  document.getElementById('vModalTitle').textContent = vid.title;
+  document.getElementById('vModalDesc').textContent = vid.desc || 'No description available.';
+
+  const watchBtn = document.getElementById('vModalWatchBtn');
+  watchBtn.onclick = ()=>{ window.open(vid.link,'_blank'); };
+
+  renderModalReviews(videoId);
+
+  document.getElementById('videoModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeVideoModal(){
+  document.getElementById('videoModal').classList.remove('open');
+  document.body.style.overflow='';
+  currentVideoId=null;
+}
+
+function renderModalReviews(videoId){
+  const allRevs = getData(KEY_VREVIEWS);
+  const revs = allRevs.filter(r=>r.videoId==videoId).sort((a,b)=>b.id-a.id);
+  const listEl = document.getElementById('vRevList');
+
+  if(!revs.length){
+    listEl.innerHTML='<div class="vRevEmpty">No reviews yet — be the first to review! 🌟</div>';
+  } else {
+    listEl.innerHTML = revs.map(r=>`
+      <div class="vRevCard">
+        <div class="vRevCardTop">
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700">${r.author.charAt(0).toUpperCase()}</div>
+            <span class="vRevAuthor">${escHtml(r.author)}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <span class="vRevStars">${'⭐'.repeat(r.stars)}</span>
+            <span class="vRevTime">${r.time}</span>
+          </div>
+        </div>
+        <div class="vRevText">"${escHtml(r.text)}"</div>
+      </div>
+    `).join('');
+  }
+
+  // Render form or login prompt
+  const formArea = document.getElementById('vRevFormArea');
+  if(currentUser){
+    // Check if user already reviewed
+    const alreadyReviewed = revs.find(r=>r.userId===currentUser.id);
+    if(alreadyReviewed){
+      formArea.innerHTML=`<div style="text-align:center;padding:.8rem;font-size:.82rem;color:var(--slate)">✅ You've already reviewed this video.</div>`;
+    } else {
+      formArea.innerHTML=`
+        <div class="vAddRevForm">
+          <div class="vAddRevTitle">✍️ Write Your Review</div>
+          <div class="vStarPicker" id="starPicker">
+            <span data-s="1" onclick="pickStar(1)">⭐</span>
+            <span data-s="2" onclick="pickStar(2)">⭐</span>
+            <span data-s="3" onclick="pickStar(3)">⭐</span>
+            <span data-s="4" onclick="pickStar(4)">⭐</span>
+            <span data-s="5" onclick="pickStar(5)">⭐</span>
+          </div>
+          <textarea class="vRevInput" id="vRevText" placeholder="Share your thoughts about this video..."></textarea>
+          <button class="vRevSubmitBtn" onclick="submitVideoReview('${videoId}')">Submit Review →</button>
+        </div>`;
+      selectedStars=0;
+    }
+  } else {
+    formArea.innerHTML=`<div class="vRevLoginPrompt">🔒 <strong onclick="openAuth('login')">Login</strong> or <strong onclick="openAuth('signup')">Sign Up</strong> to leave a review!</div>`;
+  }
+
+  // Update review count on card
+  updateStaticReviewCounts();
+}
+
+let selectedStars = 0;
+function pickStar(n){
+  selectedStars=n;
+  document.querySelectorAll('#starPicker span').forEach((s,i)=>{
+    s.classList.toggle('lit', i<n);
+  });
+}
+
+function submitVideoReview(videoId){
+  if(!currentUser){ openAuth('login'); return; }
+  if(!selectedStars){ alert('Please select a star rating!'); return; }
+  const text = document.getElementById('vRevText').value.trim();
+  if(!text){ alert('Please write your review.'); return; }
+
+  const revs = getData(KEY_VREVIEWS);
+  revs.unshift({
+    id:Date.now(), videoId, userId:currentUser.id,
+    author:currentUser.name, stars:selectedStars, text,
+    time:new Date().toLocaleString('en-IN')
+  });
+  setData(KEY_VREVIEWS, revs);
+  selectedStars=0;
+  renderModalReviews(videoId);
+}
+
+function updateStaticReviewCounts(){
+  const allRevs = getData(KEY_VREVIEWS);
+  ['music','amari','prodhouse'].forEach(k=>{
+    const count = allRevs.filter(r=>r.videoId==='static_'+k).length;
+    const el = document.getElementById('staticRevCount_'+k);
+    if(el) el.textContent = count ? `⭐ ${count} review${count>1?'s':''}` : '⭐ 0 reviews';
+  });
+  // Dynamic videos
+  getData(KEY_VIDEOS).forEach(v=>{
+    const c = allRevs.filter(r=>r.videoId==v.id).length;
+    const el = document.getElementById('dynRevCount_'+v.id);
+    if(el) el.textContent = c ? `⭐ ${c} review${c>1?'s':''}` : '⭐ 0 reviews';
+  });
+}
+
+function escHtml(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+// ═══════════════════════════════════════
+// CONTACT FORM
+// ═══════════════════════════════════════
+async function sendContactForm(){
+  const name=document.getElementById('uName').value.trim(),
+        email=document.getElementById('uEmail').value.trim(),
+        phone=document.getElementById('uPhone').value.trim(),
+        service=document.getElementById('uService').value,
+        msg=document.getElementById('uMsg').value.trim();
+  const btn=document.getElementById('sendBtn');
+  if(!name||!email||!service||!msg){ showFormMsg('error','⚠ Please fill all required fields.'); return; }
+  if(!email.includes('@')){ showFormMsg('error','⚠ Please enter a valid email.'); return; }
+  btn.disabled=true; btn.textContent='Sending...';
+  const messages=getData(KEY_MESSAGES);
+  messages.unshift({id:Date.now(),name,email,phone,service,message:msg,time:new Date().toLocaleString('en-IN'),read:false});
+  setData(KEY_MESSAGES,messages);
+  checkUnread();
+  try{
+    await emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{from_name:name,from_email:email,phone:phone||'Not provided',service,message:msg,to_email:ADMIN_EMAIL,reply_to:email});
+  }catch(e){}
+  showFormMsg('success','✅ Message sent! We will contact you soon.');
+  ['uName','uEmail','uPhone','uMsg'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('uService').value='';
+  btn.disabled=false; btn.textContent='Send Message →';
+}
+function showFormMsg(type,text){
+  const el=document.getElementById('formMsg');
+  el.className='formMsg '+type; el.textContent=text;
+  setTimeout(()=>{ el.className='formMsg'; el.textContent=''; },6000);
+}
+
+// ═══════════════════════════════════════
+// ADMIN PANEL
+// ═══════════════════════════════════════
+document.getElementById('adminBtn').addEventListener('click',()=>{
+  document.getElementById('adminModal').classList.add('open');
+});
+function closeAdminModal(){
+  document.getElementById('adminModal').classList.remove('open');
+  document.getElementById('aErr').style.display='none';
+  document.getElementById('aUser').value=''; document.getElementById('aPass').value='';
+}
+function doLogin(){
+  if(document.getElementById('aUser').value===ADMIN_USER && document.getElementById('aPass').value===ADMIN_PASS){
+    closeAdminModal(); openDashboard();
+  } else { document.getElementById('aErr').style.display='block'; }
+}
+function openDashboard(){
+  document.getElementById('adminDash').classList.add('open');
+  document.body.style.overflow='hidden';
+  refreshDashboard();
+}
+function adminLogout(){ document.getElementById('adminDash').classList.remove('open'); document.body.style.overflow=''; }
+function switchTab(tab,e){
+  document.querySelectorAll('.dashPanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.dTab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  if(e) e.target.classList.add('active');
+  if(tab==='messages') renderAdminMessages();
+  if(tab==='videos') renderAdminVideos();
+  if(tab==='reviews') renderAdminReviews();
+  if(tab==='users') renderAdminUsers();
+}
+function refreshDashboard(){
+  const vids=getData(KEY_VIDEOS), msgs=getData(KEY_MESSAGES), users=getData(KEY_USERS);
+  const unread=msgs.filter(m=>!m.read).length;
+  document.getElementById('ovVideos').textContent=vids.length;
+  document.getElementById('ovMessages').textContent=msgs.length;
+  document.getElementById('ovUnread').textContent=unread;
+  document.getElementById('ovUsers').textContent=users.length;
+  const recent=msgs.slice(0,3);
+  document.getElementById('recentMsgs').innerHTML=recent.length?recent.map(m=>`
+    <div style="border-bottom:1px solid var(--border);padding:.8rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
+      <div><span style="font-family:var(--F1)">${m.name}</span><span style="font-size:.7rem;color:var(--slate);margin-left:.5rem">${m.email}</span>${!m.read?'<span class="newBadge">NEW</span>':''}</div>
+      <div style="font-size:.75rem;color:var(--slate)">${m.time}</div>
+    </div>`).join(''):'<p style="color:var(--slate);font-size:.85rem">No messages yet.</p>';
+}
+function checkUnread(){
+  const u=getData(KEY_MESSAGES).filter(m=>!m.read).length;
+  document.getElementById('msgNotif').style.display=u>0?'inline-block':'none';
+}
+
+// ── Videos ─────────────────────────────────────────────────
+function addVideo(){
+  const title=document.getElementById('vTitle').value.trim(),platform=document.getElementById('vPlatform').value,
+        link=document.getElementById('vLink').value.trim(),thumb=document.getElementById('vThumb').value.trim(),
+        desc=document.getElementById('vDesc').value.trim(),category=document.getElementById('vCategory').value,
+        emoji=document.getElementById('vEmoji').value.trim()||'🎬';
+  if(!title||!platform||!link){ alert('Title, Platform aur Link required!'); return; }
+  const vids=getData(KEY_VIDEOS);
+  vids.unshift({id:Date.now(),title,platform,link,thumb,desc,category,emoji});
+  setData(KEY_VIDEOS,vids);
+  ['vTitle','vLink','vThumb','vDesc','vEmoji'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('vPlatform').value='';
+  renderAdminVideos(); renderPublicVideos();
+}
+function deleteVideo(id){
+  if(!confirm('Delete this video?')) return;
+  setData(KEY_VIDEOS,getData(KEY_VIDEOS).filter(v=>v.id!==id));
+  renderAdminVideos(); renderPublicVideos();
+}
+function renderAdminVideos(){
+  const vids=getData(KEY_VIDEOS);
+  document.getElementById('videoCount').textContent=vids.length;
+  const el=document.getElementById('adminVideoList');
+  if(!vids.length){ el.innerHTML='<div class="emptyState"><div class="emptyIcon">🎬</div><p>No videos added yet.</p></div>'; return; }
+  el.innerHTML=vids.map(v=>`
+    <div class="vListCard">
+      <div class="vListThumb">
+        ${v.thumb?`<img src="${v.thumb}" alt="${v.title}" onerror="this.parentNode.innerHTML='<span style=font-size:2.5rem>${v.emoji}</span>'">` : `<span style="font-size:2.5rem">${v.emoji}</span>`}
+        <span class="vPlatBadge">${v.platform.toUpperCase()}</span>
+      </div>
+      <div class="vListInfo">
+        <div class="vListTitle">${v.title}</div>
+        <div class="vListDesc">${v.desc||'No description'}</div>
+        <div style="font-size:.7rem;color:var(--slate);margin-top:.3rem">📂 ${v.category}</div>
+        <div class="vListActions">
+          <a href="${v.link}" target="_blank" class="vActBtn vEdit" style="text-decoration:none">View →</a>
+          <button class="vActBtn vDel" onclick="deleteVideo(${v.id})">🗑 Delete</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function renderPublicVideos(){
+  const vids=getData(KEY_VIDEOS);
+  const el=document.getElementById('dynamicVideos');
+  if(!vids.length){ el.innerHTML=''; updateStaticReviewCounts(); return; }
+  const platLabel=p=>p==='youtube'?'YouTube':p==='instagram'?'Instagram':p==='vimeo'?'Vimeo':'Video';
+  el.innerHTML=`<h3 style="font-family:var(--F1);font-size:1.6rem;margin-top:3rem;margin-bottom:1.5rem">More <em style="background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Content</em></h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem">
+  ${vids.map(v=>`
+    <div class="videoCard" onclick="openVideoModal(${v.id})">
+      <div class="videoCardThumb">
+        ${v.thumb?`<img src="${v.thumb}" alt="${v.title}" onerror="this.parentNode.innerHTML='<span class=vcThumbIcon>${v.emoji}</span><div class=vcPlayBtn><span>▶</span></div>'">` : `<span class="vcThumbIcon">${v.emoji}</span>`}
+        <div class="vcPlayBtn"><span>▶</span></div>
+        <span class="vcPlatBadge">${platLabel(v.platform).toUpperCase()}</span>
+      </div>
+      <div class="vcBody">
+        <div class="vcTitle">${v.title}</div>
+        <div class="vcDesc">${v.desc||''}</div>
+        <div class="vcMeta">
+          <span class="vcReviewCount" id="dynRevCount_${v.id}">⭐ 0 reviews</span>
+          <span class="vcCategoryBadge">${(v.category||'general').toUpperCase()}</span>
+        </div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+  updateStaticReviewCounts();
+}
+
+// ── Messages ───────────────────────────────────────────────
+let msgFilter='all';
+function filterMsgs(f){ msgFilter=f; renderAdminMessages(); }
+function renderAdminMessages(){
+  let msgs=getData(KEY_MESSAGES);
+  if(msgFilter==='unread') msgs=msgs.filter(m=>!m.read);
+  if(msgFilter==='read') msgs=msgs.filter(m=>m.read);
+  const el=document.getElementById('adminMsgList');
+  if(!msgs.length){ el.innerHTML='<div class="emptyState"><div class="emptyIcon">✉</div><p>No messages found.</p></div>'; return; }
+  el.innerHTML=msgs.map(m=>`
+    <div class="msgCard ${m.read?'read':''}" id="msg-${m.id}">
+      <div class="msgMeta">
+        <div><span class="msgName">${m.name}</span>${!m.read?'<span class="newBadge">NEW</span>':''}</div>
+        <span class="msgTime">${m.time}</span>
+      </div>
+      <div class="msgEmail">✉ ${m.email}${m.phone?' | 📱 '+m.phone:''}</div>
+      <div class="msgService">${m.service||'General Inquiry'}</div>
+      <div class="msgBody">${m.message}</div>
+      <div class="msgActions">
+        ${!m.read?`<button class="markRead" onclick="markRead(${m.id})">✓ Mark Read</button>`:''}
+        <a href="mailto:${m.email}?subject=Re: ${m.service}" class="markRead" style="text-decoration:none">↩ Reply</a>
+        <button class="msgDel" onclick="deleteMsg(${m.id})">🗑 Delete</button>
+      </div>
+    </div>`).join('');
+}
+function markRead(id){
+  const msgs=getData(KEY_MESSAGES), m=msgs.find(m=>m.id===id);
+  if(m) m.read=true;
+  setData(KEY_MESSAGES,msgs); renderAdminMessages(); refreshDashboard(); checkUnread();
+}
+function deleteMsg(id){
+  if(!confirm('Delete message?')) return;
+  setData(KEY_MESSAGES,getData(KEY_MESSAGES).filter(m=>m.id!==id));
+  renderAdminMessages(); refreshDashboard(); checkUnread();
+}
+
+// ── Studio Reviews ─────────────────────────────────────────
+function addReview(){
+  const author=document.getElementById('rAuthor').value.trim(),
+        role=document.getElementById('rRole').value.trim(),
+        stars=parseInt(document.getElementById('rStars').value),
+        text=document.getElementById('rText').value.trim();
+  if(!author||!text){ alert('Name and review text required!'); return; }
+  const revs=getData(KEY_REVIEWS);
+  revs.unshift({id:Date.now(),author,role,stars,text,visible:true});
+  setData(KEY_REVIEWS,revs);
+  ['rAuthor','rRole','rText'].forEach(i=>document.getElementById(i).value='');
+  renderAdminReviews(); renderPublicReviews();
+}
+function toggleReview(id){
+  const revs=getData(KEY_REVIEWS), r=revs.find(r=>r.id===id);
+  if(r) r.visible=!r.visible;
+  setData(KEY_REVIEWS,revs); renderAdminReviews(); renderPublicReviews();
+}
+function deleteReview(id){
+  if(!confirm('Delete review?')) return;
+  setData(KEY_REVIEWS,getData(KEY_REVIEWS).filter(r=>r.id!==id));
+  renderAdminReviews(); renderPublicReviews();
+}
+function renderAdminReviews(){
+  const revs=getData(KEY_REVIEWS);
+  document.getElementById('reviewCount').textContent=revs.length;
+  const el=document.getElementById('adminReviewList');
+  if(!revs.length){ el.innerHTML='<div class="emptyState"><div class="emptyIcon">⭐</div><p>No reviews yet.</p></div>'; return; }
+  el.innerHTML=revs.map(r=>`
+    <div class="rCard">
+      <div class="rCardTop">
+        <div><span class="rAuthor">${r.author}</span><span style="font-size:.75rem;color:var(--slate);margin-left:.5rem">${r.role||''}</span></div>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <span class="rStars">${'⭐'.repeat(r.stars)}</span>
+          <button class="rVisible ${r.visible?'on':'off'}" onclick="toggleReview(${r.id})">${r.visible?'✓ Visible':'✗ Hidden'}</button>
+          <button class="vActBtn vDel" onclick="deleteReview(${r.id})">🗑</button>
+        </div>
+      </div>
+      <div class="rText">"${r.text}"</div>
+    </div>`).join('');
+}
+function renderPublicReviews(){
+  const revs=getData(KEY_REVIEWS).filter(r=>r.visible);
+  const el=document.getElementById('publicReviews');
+  if(!revs.length){ el.innerHTML='<div class="emptyState"><div class="emptyIcon">⭐</div><p style="color:var(--slate)">No reviews yet. Check back soon!</p></div>'; return; }
+  el.innerHTML=revs.map(r=>`
+    <div class="rPubCard rv">
+      <div class="rPubStars">${'⭐'.repeat(r.stars)}</div>
+      <div class="rPubText">"${r.text}"</div>
+      <div class="rPubAuthor">${r.author}</div>
+      <div class="rPubRole">${r.role||'Client'}</div>
+    </div>`).join('');
+  document.querySelectorAll('.rPubCard.rv').forEach(el=>observer.observe(el));
+}
+
+// ── Users (Admin) ──────────────────────────────────────────
+function renderAdminUsers(){
+  const users=getData(KEY_USERS);
+  const el=document.getElementById('adminUserList');
+  if(!users.length){ el.innerHTML='<div class="emptyState"><div class="emptyIcon">👥</div><p>No registered users yet.</p></div>'; return; }
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem">
+    ${users.map(u=>`
+      <div style="background:var(--deep);border-radius:12px;padding:1.2rem;border:1px solid var(--border);display:flex;gap:1rem;align-items:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;flex-shrink:0">${u.name.charAt(0).toUpperCase()}</div>
+        <div>
+          <div style="font-family:var(--F1);font-size:1rem">${u.name}</div>
+          <div style="font-size:.72rem;color:var(--pink)">${u.email}</div>
+          <div style="font-size:.65rem;color:var(--slate);margin-top:.2rem">Joined: ${u.joined}</div>
+        </div>
+      </div>`).join('')}
+    </div>`;
+}
+</script>
+</body>
+</html>
