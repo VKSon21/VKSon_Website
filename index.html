@@ -43,13 +43,7 @@ nav.sc{background:rgba(13,10,21,.95);backdrop-filter:blur(18px);padding:.8rem 5v
 .nLinks a{font-family:var(--F3);font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#FFFFFF;transition:color .3s;position:relative;padding-bottom:3px}
 .nLinks a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;border-radius:2px;background:currentColor;transition:width .3s}
 .nLinks a:hover::after{width:100%}
-.nLinks li:nth-child(1) a:hover{color:#F5C842}
-.nLinks li:nth-child(2) a:hover{color:#E98074}
-.nLinks li:nth-child(3) a:hover{color:#3ECFCF}
-.nLinks li:nth-child(4) a:hover{color:#9D6FE8}
-.nLinks li:nth-child(5) a:hover{color:#4ADE80}
-.nLinks li:nth-child(6) a:hover{color:#D83F87}
-.nLinks li:nth-child(7) a:hover{color:#F4A261}
+.nLinks a:hover{color:var(--pink)}
 .nCta{background:linear-gradient(135deg,var(--purple),var(--pink));padding:.45rem 1.2rem;border-radius:30px;color:#fff!important;font-family:var(--F3)!important}
 .nCta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(216,63,135,.4)}
 .nCta::after{display:none!important}
@@ -74,14 +68,7 @@ nav.sc{background:rgba(13,10,21,.95);backdrop-filter:blur(18px);padding:.8rem 5v
 .mMenu{position:fixed;inset:0;background:var(--bg);z-index:750;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;visibility:hidden;transition:.3s}
 .mMenu.open{opacity:1;visibility:visible}
 .mMenu a{font-family:var(--F1);font-size:1.5rem;font-weight:700;color:var(--white);transition:.3s;letter-spacing:.05em}
-.mMenu a:nth-child(1){color:#F5C842}
-.mMenu a:nth-child(2){color:#E98074}
-.mMenu a:nth-child(3){color:#3ECFCF}
-.mMenu a:nth-child(4){color:#9D6FE8}
-.mMenu a:nth-child(5){color:#4ADE80}
-.mMenu a:nth-child(6){color:#D83F87}
-.mMenu a:nth-child(7){color:#F4A261}
-.mMenu a:hover{transform:translateX(8px)}
+.mMenu a:hover{color:var(--pink);transform:translateX(8px)}
 
 /* ── HERO ── */
 #hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
@@ -639,7 +626,11 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
 
   <div class="videoGrid" id="staticVideoGrid">
     <div class="videoCard rv d1" onclick="openVideoModal('static_music')">
-      <div class="videoCardThumb"><span class="vcThumbIcon">🎵</span><div class="vcPlayBtn"><span>▶</span></div><span class="vcPlatBadge">YOUTUBE</span></div>
+      <div class="videoCardThumb">
+        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" alt="VK Son Music">
+        <div class="vcPlayBtn"><span>▶</span></div>
+        <span class="vcPlatBadge">YOUTUBE</span>
+      </div>
       <div class="vcBody">
         <div class="vcTitle">VK Son Music</div>
         <div class="vcDesc">Original music compositions and songs — feel the rhythm of our creative soul through every track.</div>
@@ -647,7 +638,11 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
       </div>
     </div>
     <div class="videoCard rv d2" onclick="openVideoModal('static_amari')">
-      <div class="videoCardThumb"><span class="vcThumbIcon">🎤</span><div class="vcPlayBtn"><span>▶</span></div><span class="vcPlatBadge">YOUTUBE</span></div>
+      <div class="videoCardThumb">
+        <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&q=80" alt="Amari Vato">
+        <div class="vcPlayBtn"><span>▶</span></div>
+        <span class="vcPlatBadge">YOUTUBE</span>
+      </div>
       <div class="vcBody">
         <div class="vcTitle">Amari Vato</div>
         <div class="vcDesc">Creative music videos and artistic content — where bold visuals meet compelling storytelling.</div>
@@ -655,7 +650,11 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
       </div>
     </div>
     <div class="videoCard rv d3" onclick="openVideoModal('static_prodhouse')">
-      <div class="videoCardThumb"><span class="vcThumbIcon">🏭</span><div class="vcPlayBtn"><span>▶</span></div><span class="vcPlatBadge">INSTAGRAM</span></div>
+      <div class="videoCardThumb">
+        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80" alt="Production House">
+        <div class="vcPlayBtn"><span>▶</span></div>
+        <span class="vcPlatBadge">INSTAGRAM</span>
+      </div>
       <div class="vcBody">
         <div class="vcTitle">Production House</div>
         <div class="vcDesc">Professional production work and behind-the-scenes footage from our studio operations.</div>
@@ -911,11 +910,22 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
           <div><select id="vPlatform"><option value="">Select Platform *</option><option value="youtube">YouTube</option><option value="instagram">Instagram</option><option value="vimeo">Vimeo</option><option value="other">Other</option></select></div>
         </div>
         <div class="aFull"><input type="url" id="vLink" placeholder="Video Link / URL *"></div>
-        <div class="aFull"><input type="url" id="vThumb" placeholder="Thumbnail Image URL (optional)"></div>
+        <div class="aFull" style="display:flex; flex-direction:column; gap:0.5rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+            <input type="url" id="vThumb" placeholder="Thumbnail Image URL *" oninput="previewThumbUrl(this.value)">
+            <label style="display:flex; align-items:center; justify-content:center; background:rgba(216,63,135,0.15); border:1px dashed var(--border2); border-radius:8px; cursor:pointer; font-family:var(--F3); font-size:0.7rem; color:var(--pink); transition:0.3s; padding:0.5rem; text-align:center; height:100%;" onmouseover="this.style.background='rgba(216,63,135,0.25)'" onmouseout="this.style.background='rgba(216,63,135,0.15)'">
+              📁 Upload Local Image
+              <input type="file" id="vThumbFile" accept="image/*" style="display:none;" onchange="handleLocalThumbUpload(event)">
+            </label>
+          </div>
+          <div id="vThumbPreviewWrap" style="display:none; position:relative; width:160px; aspect-ratio:16/9; margin-top:0.2rem; border-radius:8px; overflow:hidden; border:1px solid var(--border2);">
+            <img id="vThumbPreviewImg" src="" style="width:100%; height:100%; object-fit:cover;">
+            <span style="position:absolute; top:2px; right:2px; background:rgba(0,0,0,0.6); color:#fff; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.6rem; cursor:pointer;" onclick="clearThumbPreview()">✕</span>
+          </div>
+        </div>
         <div class="aFull"><textarea id="vDesc" placeholder="Detailed description about this video..."></textarea></div>
         <div class="aFRow">
           <div><select id="vCategory"><option value="general">General</option><option value="music">Music</option><option value="production">Production</option><option value="wedding">Wedding</option><option value="commercial">Commercial</option></select></div>
-          <div><input type="text" id="vEmoji" placeholder="Emoji icon (e.g. 🎵)" maxlength="4"></div>
         </div>
         <button class="aSubmitBtn" onclick="addVideo()">Add Video →</button>
       </div>
@@ -1133,17 +1143,17 @@ let currentVideoId = null;
 const staticVideos = {
   'static_music': {
     id:'static_music', title:'VK Son Music', platform:'youtube',
-    link:'https://youtube.com/@v.ksonmusic', emoji:'🎵', category:'music',
+    link:'https://youtube.com/@v.ksonmusic', thumb:'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80', category:'music',
     desc:'Dive into the world of VK Son Music — a curated YouTube channel featuring original compositions, soul-stirring melodies, and tracks that blend contemporary sounds with traditional influences. From ambient scores to high-energy beats, every track is crafted with passion and precision.'
   },
   'static_amari': {
     id:'static_amari', title:'Amari Vato', platform:'youtube',
-    link:'https://youtube.com/@amari_vato', emoji:'🎤', category:'music',
+    link:'https://youtube.com/@amari_vato', thumb:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&q=80', category:'music',
     desc:'Amari Vato is the creative outlet for bold, experimental music videos and artistic audiovisual content. Expect vivid visuals paired with compelling storytelling — a channel that pushes the boundaries of music and cinema. Collaborations with emerging artists and behind-the-scenes content.'
   },
   'static_prodhouse': {
     id:'static_prodhouse', title:'Production House', platform:'instagram',
-    link:'https://www.instagram.com/vk_son_production_house', emoji:'🏭', category:'production',
+    link:'https://www.instagram.com/vk_son_production_house', thumb:'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80', category:'production',
     desc:'Get an exclusive look at VK Son Production House on Instagram — professional shoots, set life, behind-the-scenes clips, and completed project showcases. From wedding cinematography to corporate films, see our full spectrum of production work across different genres and styles.'
   }
 };
@@ -1154,9 +1164,9 @@ function openVideoModal(videoId){
   currentVideoId = videoId;
   const thumbEl = document.getElementById('vModalThumb');
   if(vid.thumb){
-    thumbEl.innerHTML = `<img src="${vid.thumb}" alt="${vid.title}" onerror="this.parentNode.innerHTML='<span class=vModalThumbIcon>${vid.emoji||'🎬'}</span>'"><span class="vModalPlatBadge" id="vModalPlatBadge">${(vid.platform||'').toUpperCase()}</span>`;
+    thumbEl.innerHTML = `<img src="${vid.thumb}" alt="${vid.title}" onerror="this.parentNode.innerHTML='<span class=vModalThumbIcon>🎬</span>'"><span class="vModalPlatBadge" id="vModalPlatBadge">${(vid.platform||'').toUpperCase()}</span>`;
   } else {
-    thumbEl.innerHTML = `<span class="vModalThumbIcon">${vid.emoji||'🎬'}</span><span class="vModalPlatBadge">${(vid.platform||'').toUpperCase()}</span>`;
+    thumbEl.innerHTML = `<img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80" alt="${vid.title}"><span class="vModalPlatBadge">${(vid.platform||'').toUpperCase()}</span>`;
   }
   document.getElementById('vModalCategory').textContent = (vid.category||'video').toUpperCase();
   document.getElementById('vModalTitle').textContent = vid.title;
@@ -1340,17 +1350,83 @@ function checkUnread(){
   document.getElementById('msgNotif').style.display=u>0?'inline-block':'none';
 }
 
+let uploadedThumbDataUrl = '';
+
+function handleLocalThumbUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 600;
+      canvas.height = 337;
+      const ctx = canvas.getContext('2d');
+      
+      const targetRatio = 16 / 9;
+      const imgRatio = img.width / img.height;
+      let sx = 0, sy = 0, sw = img.width, sh = img.height;
+      
+      if (imgRatio > targetRatio) {
+        sw = img.height * targetRatio;
+        sx = (img.width - sw) / 2;
+      } else if (imgRatio < targetRatio) {
+        sh = img.width / targetRatio;
+        sy = (img.height - sh) / 2;
+      }
+      
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, 600, 337);
+      
+      uploadedThumbDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+      
+      const previewWrap = document.getElementById('vThumbPreviewWrap');
+      const previewImg = document.getElementById('vThumbPreviewImg');
+      previewImg.src = uploadedThumbDataUrl;
+      previewWrap.style.display = 'block';
+      document.getElementById('vThumb').value = '';
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function previewThumbUrl(url) {
+  const previewWrap = document.getElementById('vThumbPreviewWrap');
+  const previewImg = document.getElementById('vThumbPreviewImg');
+  if (url.trim()) {
+    previewImg.src = url.trim();
+    previewWrap.style.display = 'block';
+    uploadedThumbDataUrl = '';
+  } else {
+    clearThumbPreview();
+  }
+}
+
+function clearThumbPreview() {
+  document.getElementById('vThumbPreviewWrap').style.display = 'none';
+  document.getElementById('vThumbPreviewImg').src = '';
+  document.getElementById('vThumb').value = '';
+  const fileInput = document.getElementById('vThumbFile');
+  if (fileInput) fileInput.value = '';
+  uploadedThumbDataUrl = '';
+}
+
 function addVideo(){
-  const title=document.getElementById('vTitle').value.trim(),platform=document.getElementById('vPlatform').value,
-        link=document.getElementById('vLink').value.trim(),thumb=document.getElementById('vThumb').value.trim(),
-        desc=document.getElementById('vDesc').value.trim(),category=document.getElementById('vCategory').value,
-        emoji=document.getElementById('vEmoji').value.trim()||'🎬';
-  if(!title||!platform||!link){ alert('Title, Platform aur Link required!'); return; }
+  const title=document.getElementById('vTitle').value.trim(),
+        platform=document.getElementById('vPlatform').value,
+        link=document.getElementById('vLink').value.trim(),
+        thumb=uploadedThumbDataUrl || document.getElementById('vThumb').value.trim(),
+        desc=document.getElementById('vDesc').value.trim(),
+        category=document.getElementById('vCategory').value;
+  if(!title||!platform||!link||!thumb){ alert('Title, Platform, Link and a Thumbnail (URL or File) are required!'); return; }
   const vids=getData(KEY_VIDEOS);
-  vids.unshift({id:Date.now(),title,platform,link,thumb,desc,category,emoji});
+  vids.unshift({id:Date.now(),title,platform,link,thumb,desc,category});
   setData(KEY_VIDEOS,vids);
-  ['vTitle','vLink','vThumb','vDesc','vEmoji'].forEach(i=>document.getElementById(i).value='');
+  ['vTitle','vLink','vDesc'].forEach(i=>document.getElementById(i).value='');
   document.getElementById('vPlatform').value='';
+  clearThumbPreview();
   renderAdminVideos(); renderPublicVideos();
 }
 function deleteVideo(id){
@@ -1366,7 +1442,7 @@ function renderAdminVideos(){
   el.innerHTML=vids.map(v=>`
     <div class="vListCard">
       <div class="vListThumb">
-        ${v.thumb?`<img src="${v.thumb}" alt="${v.title}" onerror="this.parentNode.innerHTML='<span style=font-size:2.5rem>${v.emoji}</span>'">` : `<span style="font-size:2.5rem">${v.emoji}</span>`}
+        ${v.thumb?`<img src="${v.thumb}" alt="${v.title}" onerror="this.parentNode.innerHTML='<span style=font-size:2.5rem>🎬</span>'">` : `<img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80" alt="${v.title}">`}
         <span class="vPlatBadge">${v.platform.toUpperCase()}</span>
       </div>
       <div class="vListInfo">
@@ -1390,7 +1466,7 @@ function renderPublicVideos(){
   ${vids.map(v=>`
     <div class="videoCard" onclick="openVideoModal(${v.id})">
       <div class="videoCardThumb">
-        ${v.thumb?`<img src="${v.thumb}" alt="${v.title}" onerror="this.parentNode.innerHTML='<span class=vcThumbIcon>${v.emoji}</span><div class=vcPlayBtn><span>▶</span></div>'">` : `<span class="vcThumbIcon">${v.emoji}</span>`}
+        ${v.thumb?`<img src="${v.thumb}" alt="${v.title}" onerror="this.parentNode.innerHTML='<span class=vcThumbIcon>🎬</span><div class=vcPlayBtn><span>▶</span></div>'">` : `<img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80" alt="${v.title}">`}
         <div class="vcPlayBtn"><span>▶</span></div>
         <span class="vcPlatBadge">${platLabel(v.platform).toUpperCase()}</span>
       </div>
