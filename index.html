@@ -471,6 +471,7 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
 .addForm{background:var(--deep);border-radius:16px;padding:2rem;margin-bottom:2rem}
 .addForm h3{font-family:var(--F1);font-size:1.4rem;margin-bottom:1.5rem;color:var(--white);letter-spacing:.02em}
 .aFRow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.thumbGrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .aFull{margin-bottom:1rem}
 .aFull input,.aFull textarea,.aFull select,
 .aFRow input,.aFRow select{width:100%;background:var(--bg);border:1px solid var(--border);padding:.7rem 1rem;color:var(--white);border-radius:8px;font-family:var(--F2);font-size:.9rem}
@@ -481,7 +482,7 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
 .aSubmitBtn{background:linear-gradient(135deg,var(--coral),var(--pink));color:#0B0615;border:none;padding:.7rem 2rem;border-radius:30px;font-family:var(--F3);font-weight:700;letter-spacing:.1em;cursor:pointer;transition:.3s;font-size:.75rem}
 .aSubmitBtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(212,175,55,.5)}
 /* ── ADMIN VIDEO CARD (improved) ── */
-.videoListGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+.videoListGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
 .vListCard{background:var(--deep);border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:.3s;display:flex;flex-direction:column}
 .vListCard:hover{border-color:var(--border2);box-shadow:0 8px 30px rgba(212,175,55,.15);transform:translateY(-3px)}
 .vListThumb{width:100%;aspect-ratio:16/9;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative;overflow:hidden}
@@ -554,6 +555,7 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
   .studioCards{grid-template-columns:1fr}
   .statsRow{grid-template-columns:1fr 1fr}
   .authBody{padding:1.2rem 1.2rem 1.5rem}
+  .thumbGrid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -938,7 +940,7 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
   <div class="vModalBg" onclick="closeEditModal()"></div>
   <div class="vModalBox" style="max-width:550px;">
     <div class="vModalClose" onclick="closeEditModal()">✕</div>
-    <div class="vModalContent" style="padding:2rem;">
+    <div class="vModalContent">
       <h2 style="font-family:var(--F1);margin-bottom:1.5rem;font-size:1.6rem;letter-spacing:.02em;">✏️ Edit <em style="background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal;">Video Details</em></h2>
       <input type="hidden" id="editVidId">
       
@@ -960,7 +962,7 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
       
       <div class="aFull" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:0.3rem;">
         <label style="font-family:var(--F3);font-size:.65rem;color:var(--slate);display:block;margin-bottom:.1rem;letter-spacing:.05em">THUMBNAIL IMAGE *</label>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        <div class="thumbGrid">
           <input type="url" id="editVidThumb" class="aInput" style="margin:0;width:100%;" placeholder="Thumbnail URL" oninput="previewEditThumbUrl(this.value)">
           <label style="display:flex; align-items:center; justify-content:center; background:rgba(216,63,135,0.15); border:1px dashed var(--border2); border-radius:8px; cursor:pointer; font-family:var(--F3); font-size:0.7rem; color:var(--pink); transition:0.3s; padding:0.5rem; text-align:center; height:42px;" onmouseover="this.style.background='rgba(216,63,135,0.25)'" onmouseout="this.style.background='rgba(216,63,135,0.15)'">
             📁 Upload Local Image
@@ -1043,7 +1045,7 @@ footer{background:var(--deep);padding:3rem 6vw 2rem;margin-top:2rem}
         </div>
         <div class="aFull"><input type="url" id="vLink" placeholder="Video Link / URL *"></div>
         <div class="aFull" style="display:flex; flex-direction:column; gap:0.5rem;">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="thumbGrid">
             <input type="url" id="vThumb" placeholder="Thumbnail Image URL *" oninput="previewThumbUrl(this.value)">
             <label style="display:flex; align-items:center; justify-content:center; background:rgba(216,63,135,0.15); border:1px dashed var(--border2); border-radius:8px; cursor:pointer; font-family:var(--F3); font-size:0.7rem; color:var(--pink); transition:0.3s; padding:0.5rem; text-align:center; height:100%;" onmouseover="this.style.background='rgba(216,63,135,0.25)'" onmouseout="this.style.background='rgba(216,63,135,0.15)'">
               📁 Upload Local Image
